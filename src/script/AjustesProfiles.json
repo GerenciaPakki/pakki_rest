@@ -1,0 +1,49 @@
+// Eliminar
+db.profiles.deleteOne({ "name": "Finalcial Manager" })
+db.roles.deleteOne({ "name": "Incidencias" })
+
+// Actualizar
+db.profiles.updateOne(
+   { "name": "Support" },
+   { $set: { "name": "Customer Support" } }
+)
+
+// Crear
+db.profiles.insertOne({
+  "name": "Assistant Support",
+  "role": [],
+  "allyAssignment": [],
+  "dateCreate": new Date(),
+  "update": [],
+  "__v": 0
+})
+
+// BLoquear menu
+db.menuProfile.updateOne(
+   { "profile": "Pakki", "menu.title": "Dashboard" },
+   { $set: { "menu.$.status": false } }
+)
+db.menuProfile.updateOne(
+   { "profile": "Pakki", "menu.title": "Usuario" },
+   { $set: { "menu.$.status": false } }
+)
+
+// Agregar el Rol de Incidencias a todos los perfiles de menuProfile
+db.profiles.updateMany(
+   {},
+   { $addToSet: { role: { $each: [{ "$oid": "65df8f7871003f88632b2e94" }] } } }
+)
+
+// Actualiza el role dentro de todos los perfiles
+db.profiles.updateMany(
+   { "role": "65df8f7871003f88632b2e94" },
+   { $set: { "role.$": "65df931571003f88632b2e9b" } }
+)
+
+db.businessUsers.finById({_id: "649a71a36fbdedb3acd87996", status: true},{ 
+            "colla.name": 1, 
+            "colla.lastName": 1, 
+            "colla.email": 1,
+            "colla.changePass": 1,
+            profile: 1 
+        })

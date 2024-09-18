@@ -1,0 +1,43 @@
+
+
+db.collaborators.updateOne(
+  { "colla.docu": 6666666666 },
+  { $set: { "colla.docu": 80141205 } }
+)
+
+db.businessUsers.updateOne(
+  { "colla.docu": 6666666666 },
+  { $set: { "colla.docu": 80141205 } }
+)
+
+db.collaborators.updateOne(
+  { "colla.docu": 6666666666 },
+  { $set: { "colla.docu": 80141205 } },
+  { $unset: { "colla.pass": "" } }
+)
+
+db.collaborators.updateOne(
+  { "colla.docu": 80141205 },
+  { $unset: { "colla.pass": "" } }
+)
+
+db.businessUsers.updateOne({"_id": ObjectId("649a0abbaf9bb406cfaf7b02"),"colla": {"docu": 80141205,"changePass": true},})
+
+db.businessUsers.updateOne({ "colla.docu": 80141205 },{ $set: { "colla.changePass": false } })
+
+db.businessUsers.updateOne({ "colla.docu": 80141205 }, { $set: { "colla.changePass": 0 }})
+
+
+
+db.companyDiscounts.find({Provider: "FDX", ServiceName: "PRIORITY_OVERNIGHT"}).pretty()
+
+db.collaborators.find({"colla.docu":1013620749}).pretty()
+db.collaborators.find().pretty()
+db.businessUsers.find({email:"administrativo@pakki.co"}).pretty()
+db.users.find({email:"administrativo@pakki.co"}).pretty()
+db.provider.find().pretty()
+db.business.find({"business.businessname":'Pakki'}).pretty()
+db.business.find({_id:'6495cfe84f796ea093ea07ca'}).pretty()
+
+
+

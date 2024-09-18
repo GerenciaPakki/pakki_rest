@@ -1,0 +1,160 @@
+
+// CommandDocker
+command:[{
+    EstructuraDeComandos : {
+        command: 'docker <command> [--options] <object>';
+        msg: 'En la mayoría de los casos, no nos limitamos a abrir la CLI de Docker, sino que además enviamos el nombre de un comando específico. Este puede ser un comando independiente o un comando de gestión seguido de un subcomando. Para ello, veamos primero el patrón general de un comando independiente de Docker. El nombre “docker” es seguido por el nombre del comando, parámetros opcionales y el nombre de un objeto Docker si es aplicable:';
+    },
+    FindingTheVersion : {
+        command: 'docker --version';
+        msg: 'Una de las primeras cosas que desea saber es cómo encontrar la versión de Docker instalada.';
+    },
+    dockerHelp: {
+        command: 'docker --help',
+        msg;: 'mostrar la ayuda de Docker';
+    },
+    DownloadingImage: {
+        command: 'docker pull node:19.4-bullseye-slim',
+        msg;: 'Supongamos que necesita extraer la imagen de la ventana acoplable de Dockerhub (repositorio de Docker). El siguiente ejemplo de extracción de la imagen del servidor HTTP Apache.';
+    },
+    Images: {
+        command: 'docker images',
+        msg;: 'Enumere todas las imágenes de la ventana acoplable extraídas en el sistema con detalles de imagen como ETIQUETA / ID DE IMAGEN / TAMAÑO, etc.';
+    },
+    Run: {
+        command: 'docker run -it -d [Opcion]',
+        msg;: 'Ejecute la imagen de la ventana acoplable mencionada en el comando. Este comando creará un contenedor acoplable en el que se ejecutará el servidor HTTP Apache.';
+    },
+    WhatsRunning?: {
+        command: 'docker ps',
+        msg: 'ps enumera todos los contenedores Docker que se están ejecutando con los detalles del contenedor.'
+    },
+    ps-a;: {
+        command: 'docker ps -a',
+        msg;: 'Enumere todos los contenedores de Docker que se ejecutan / salieron / detuvieron con los detalles del contenedor.';
+    },
+    exec: {
+        command: 'docker exec -it 09ca6feb6efc> id del Contenedor bash',
+        msg;: 'Acceda al contenedor de la ventana acoplable y ejecutar comandos dentro del contenedor. Estoy accediendo al contenedor del servidor Apache en este ejemplo.';
+    },
+    RemovingContainer: {
+        command: 'docker rm 9b6343d3b5a0 o los primeros 3 caracteres del contenedor',
+        msg;: 'Elimine el contenedor de la ventana acoplable con el ID del contenedor mencionado en el comando.';
+    },
+    RemovingImage: {
+        command: 'docker rmi fce289e99eb9',
+        msg;: 'Elimine la imagen de la ventana acoplable con la identificación de la imagen de la ventana acoplable mencionada en el comando';
+    },
+    RestartDocker: {
+        command: 'docker restart 09ca6feb6efc',
+        msg;: 'Reinicie el contenedor de la ventana acoplable con la identificación del contenedor mencionada en el comando.';
+    },
+    StoppingDocker: {
+        command: 'docker stop 09ca6feb6efc',
+        msg;: 'Detenga un contenedor con el ID de contenedor mencionado en el comando.';
+    },
+    StartingDocker: {
+        command: 'docker start 09ca6feb6efc',
+        msg;: 'Este comando en la ventana acoplable inicia el contenedor de la ventana acoplable con la identificación del contenedor mencionada en el comando.';
+    },
+    Kill: {
+        command: 'docker kill 09ca6feb6efc',
+        msg;: 'Detenga el contenedor Docker inmediatamente. El comando de detención de Docker detiene el contenedor con gracia, esa es la diferencia entre los comandos de detención y de detención.';
+    },
+    Commit: {
+        command: 'docker commit 09ca6feb6efc geekflare/httpd_image',
+        msg;: 'Guarde una nueva imagen de Docker con el ID de contenedor mencionado en el comando en el sistema local. En el siguiente ejemplo, geekflare es el nombre de usuario y httpd_image es el nombre de la imagen.';
+    },
+    Login: {
+        command: 'docker login',
+        msg;: 'Inicie sesión en Docker Hub. Se le pedirán las credenciales de su Docker Hub para iniciar sesión.';
+    },
+    Push: {
+        command: 'docker push geekflare/httpd_image',
+        msg;: 'Cargue una imagen de la ventana acoplable con el nombre de la imagen que se menciona en el comando en la ventana acoplable.';
+    },
+    DockerNetwork: {
+        command: {
+            'docker network ls',
+            'docker network';
+        },
+        msg: 'El siguiente comando en Docker enumera los detalles de toda la red en el clúster.';
+    },
+    DockerInfo: {
+        command: 'docker info',
+        msg;: 'Obtenga información detallada sobre la ventana acoplable instalada en el sistema, incluida la versión del kernel, el número de contenedores e imágenes, etc.';
+    },
+    CopyingFile: {
+        command: 'geekflare@geekflare:/home/geekflare$ sudo docker cp 09ca6feb6efc:/usr/local/apache2/logs/httpd.pid /home/geekflare/',
+        msg;: 'Copie un archivo de un contenedor de la ventana acoplable al sistema local. En este ejemplo, estoy copiando el archivo httpd.pid dentro de un contenedor docker con la identificación 09ca6feb6efc a / home / geekflare /';
+    },
+    CheckingHistory: {
+        command: 'docker history httpd',
+        msg;: 'Muestra el historial de una imagen de la ventana acoplable con el nombre de la imagen mencionado en el comando.';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+    CommandName: {
+        command: '.',
+        msg;: '..';
+    },
+}]
+

@@ -1,0 +1,27 @@
+version: '3'
+services: 
+  web:
+    container_name: pakkirest
+    restart: always
+    build: 
+      context: .
+    #   dockerfile: dockerfile
+    # environment:
+    #   - NODE_ENV: 'development'
+    ports:
+      - "4001:4000"
+    links:
+      - mongo
+    volumes:
+      - ".:/usr/src/app"
+      - "/usr/src/app/node_modules"
+  mongo:
+    container_name: pakkiDB
+    image: mongo
+    ports:
+      - "27018:27017"
+    logging:
+      driver: none
+  # volumes:
+  #   db_fn:
+  #     external: true

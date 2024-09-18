@@ -1,0 +1,14 @@
+{
+    "dotenv.enableAutocloaking": false,
+    "cSpell.words": [
+        "específico",
+        "Existentes",
+        "Gerencia",
+        "Guias",
+        "Ingreso",
+        "insertar",
+        "menos",
+        "Verifica"
+    ],
+    "editor.inlineSuggest.showToolbar": "onHover"
+}

@@ -1,0 +1,439 @@
+db.menuprofiles.deleteOne({ _id: ObjectId("657a1905e19ff43224c15b93") });
+
+db.menuprofiles.find({ profile: "Pakki" } ).pretty()
+
+
+
+{
+    "title": "Pakki Admin",
+    "profile": "Pakki",
+    "menu": [
+        {
+            "path": "quoter",
+            "title": "Envios & Cotizaciones",
+            "type": "sub",
+            "icontype": "",
+            "collapse": "Envios",
+            "access": "CEI",
+            "status": true,
+            "children": [
+                {
+                    "path": "quotation",
+                    "title": "Envio Cotizaciones",
+                    "ab": "EC",
+                    "access": "CEI"
+                }
+            ]
+        },
+        {
+            "path": "dash",
+            "title": "Dashboard",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Dashboard",
+            "access": ["Management reports","Grafics","Partner Reports","Reports"],
+            "status": true,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Reportes Aliado",
+                    "ab": "DA",
+                    "access": "Partner Reports"
+                },
+                {
+                    "path": "",
+                    "title": "Reportes Gerenciales",
+                    "ab": "DA",
+                    "access": "Management reports"
+                },
+                {
+                    "path": "",
+                    "title": "Reportes Pakki",
+                    "ab": "DA",
+                    "access": "Reports"
+                },
+                {
+                    "path": "",
+                    "title": "Graficos Pakki",
+                    "ab": "DA",
+                    "access": "Graphics"
+                }
+            ]
+        },
+        {
+            "path": "user",
+            "title": "Usuario",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Usuario",
+            "access": "RU User",
+            "status": true,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Ver Usuario",
+                    "ab": "VU",
+                    "access": "RU User"
+                }
+            ]
+        },
+        {
+            "path": "colla",
+            "title": "Colaborador",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Colaborador",
+            "access": ["CD Collaborator","RU Collaborator"],
+            "status": false,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Ver Colaborador",
+                    "ab": "VU",
+                    "access": "CD Collaborator"
+                },
+                {
+                    "path": "",
+                    "title": "Crear Colaborador",
+                    "ab": "VU",
+                    "access": "RU Collaborator"
+                }
+            ]
+        },
+        {
+            "path": "",
+            "title": "Cartera",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Reportes",
+            "access": ["Portafolio Reports", "CD Cartera", "RU Cartera"],
+            "status": false,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Gestion Conciliacion",
+                    "ab": "GC",
+                    "access": "CD Cartera"
+                },
+                {
+                    "path": "",
+                    "title": "Ver Conciliacion",
+                    "ab": "VCN",
+                    "access": "RU Cartera"
+                }
+            ]
+        },
+        {
+            "path": "buss",
+            "title": "Aliados",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Aliados",
+            "access": ["CD Partner", "RU Partner"],
+            "status": true,
+            "children": [
+                {
+                    "path": "create",
+                    "title": "Crear Aliados",
+                    "ab": "CA",
+                    "access": "CD Partner"
+                },
+                {
+                    "path": "create-branch",
+                    "title": "Crear Sucursal",
+                    "ab": "CA",
+                    "access": "CD Partner"
+                },
+                {
+                    "path": "addcolaborator",
+                    "title": "Vincular Colaborador",
+                    "ab": "VA",
+                    "access": "RU Partner"
+                },
+                {
+                    "path": "addcommercial",
+                    "title": "Asignar Comercial",
+                    "ab": "VA",
+                    "access": "RU Partner"
+                }
+            ]
+        },
+        {
+            "path": "postal",
+            "title": "Codigos Postal",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Proveedores",
+            "access": ["CUD Provider", "Read Provider"],
+            "status": true,
+            "children": [
+                {
+                    "path": "create",
+                    "title": "Crear Cod. Postal",
+                    "ab": "CA",
+                    "access": "CUD Provider"
+                },
+                {
+                    "path": "view",
+                    "title": "Ver Cod. Postal",
+                    "ab": "VCN",
+                    "access": "Read Provider"
+                }
+            ]
+        },
+        {
+            "path": "discounts",
+            "title": "Descuentos",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Proveedores",
+            "access": ["CUD Provider", "Read Provider"],
+            "status": true,
+            "children": [
+                {
+                    "path": "create",
+                    "title": "Crear Descuentos",
+                    "ab": "CA",
+                    "access": "CUD Provider"
+                },
+                {
+                    "path": "view",
+                    "title": "Ver Descuentos",
+                    "ab": "VCN",
+                    "access": "Read Provider"
+                }
+            ]
+        },
+        {
+            "path": "",
+            "title": "Proveedores",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Proveedores",
+            "access": ["CUD Provider", "Read Provider"],
+            "status": false,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Crear Proveedor",
+                    "ab": "CA",
+                    "access": "CUD Provider"
+                },
+                {
+                    "path": "",
+                    "title": "Ver Proveedor",
+                    "ab": "VCN",
+                    "access": "Read Provider"
+                }
+            ]
+        },
+        {
+            "path": "",
+            "title": "Roles",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Roles",
+            "access": ["CD Roles", "RU Roles"],
+            "status": false,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Crear Proveedor",
+                    "ab": "CP",
+                    "access": "CUD Roles"
+                },
+                {
+                    "path": "",
+                    "title": "Ver Proveedor",
+                    "ab": "VP",
+                    "access": "RU Roles"
+                }
+            ]
+        },
+        {
+            "path": "",
+            "title": "Configuraciones",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Configuraciones",
+            "access":["CD Surcharges","RU Surcharges","CD Profiles","RU Profiles","CRUD Weekends","CRUD Holidays","CRUD Danecodes","CRUD Trms","CD Menu","RU Menu"],
+            "status": false,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Crear Recargos",
+                    "ab": "CR",
+                    "access": "CD Surcharges"
+                },
+                {
+                    "path": "",
+                    "title": "Ver Recargos",
+                    "ab": "VR",
+                    "access": "RU Surcharges"
+                },
+                {
+                    "path": "",
+                    "title": "Crear Perfiles",
+                    "ab": "CP",
+                    "access": "CD Profiles"
+                },
+                {
+                    "path": "",
+                    "title": "Ver Perfiles",
+                    "ab": "VP",
+                    "access": "CD Profiles"
+                },
+                {
+                    "path": "",
+                    "title": "Weekends",
+                    "ab": "CW",
+                    "access": "CRUD Weekends"
+                },
+                {
+                    "path": "",
+                    "title": "Holidays",
+                    "ab": "CH",
+                    "access": "CRUD Holidays"
+                },
+                {
+                    "path": "",
+                    "title": "Codigos Dane",
+                    "ab": "CH",
+                    "access": "CRUD Danecodes"
+                },
+                {
+                    "path": "",
+                    "title": "Ver TRM's",
+                    "ab": "CH",
+                    "access": "CRUD Trms"
+                },
+                {
+                    "path": "",
+                    "title": "Crear Menus",
+                    "ab": "CH",
+                    "access": "CD Menu"
+                },
+                {
+                    "path": "",
+                    "title": "Ver Menus",
+                    "ab": "CH",
+                    "access": "RU Menu"
+                }
+            ]
+        }
+    ]
+},
+{
+    "title": "CEI",
+    "profile": "CEI",
+    "menu": [
+        {
+            "path": "quoter",
+            "title": "Envios & Cotizaciones",
+            "type": "sub",
+            "icontype": "",
+            "collapse": "Envios",
+            "access": "CEI",
+            "status": true,
+            "children": [
+                {
+                    "path": "quotation",
+                    "title": "Envio Cotizaciones",
+                    "ab": "EC",
+                    "access": "CEI"
+                }
+            ]
+        },
+        {
+            "path": "user",
+            "title": "Usuario",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Usuario",
+            "access": "RU User",
+            "status": true,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Ver Usuario",
+                    "ab": "VU",
+                    "access": "RU User"
+                }
+            ]
+        }
+    ]
+},
+{
+    "title": "Aliado",
+    "profile": "Owner",
+    "menu": [
+        {
+            "path": "quoter",
+            "title": "Envios & Cotizaciones",
+            "type": "sub",
+            "icontype": "",
+            "collapse": "Envios",
+            "access": "CEI",
+            "status": true,
+            "children": [
+                {
+                    "path": "quotation",
+                    "title": "Envio Cotizaciones",
+                    "ab": "EC",
+                    "access": "CEI"
+                }
+            ]
+        },
+        {
+            "path": "dash",
+            "title": "Dashboard",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Dashboard",
+            "access": "Partner Reports",
+            "status": true,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Informes Aliados",
+                    "ab": "IA",
+                    "access": "Partner Reports"
+                }
+            ]
+        },
+        {
+            "path": "buss",
+            "title": "Aliados",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Aliados",
+            "access": "RU Partner",
+            "status": true,
+            "children": [
+                {
+                    "path": "view",
+                    "title": "Ver Aliados",
+                    "ab": "VA",
+                    "access": "RU Partner"
+                }
+            ]
+        },
+        {
+            "path": "user",
+            "title": "Usuario",
+            "type": "sub",
+            "icontype":"",
+            "collapse":"Usuario",
+            "access": "RU User",
+            "status": true,
+            "children": [
+                {
+                    "path": "",
+                    "title": "Ver Usuario",
+                    "ab": "VU",
+                    "access": "RU User"
+                }
+            ]
+        }
+    ]
+},
