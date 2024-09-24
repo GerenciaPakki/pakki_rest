@@ -125,7 +125,7 @@ const quota = async (req, res = response) => {
             branchoffices: dat.company.branchoffices,
             Collaborator: dat.company.Collaborator
         };
-            
+        applogger.error(`prueba`);
         let resFDX, resDeprisa, resUPS, resDHL, resCDR;
         const promises = [
             quotaUPS(shipper, recipient, bus, uid, shipment, dat),
