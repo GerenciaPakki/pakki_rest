@@ -14,7 +14,7 @@ async function quotation(provider, bus, uid, dat) {
     // const url = 'http://localhost:3000/deprisa/cotizar';
     const url = APIGATEWAY_COTIZAR
     let Providers = [];
-    
+    applogger.error(`url ${provider}: {url}`)
     try {            
         return axios.post(url, dat, {}).then( async response => {
             const responseApiGateway = response.data.body;
