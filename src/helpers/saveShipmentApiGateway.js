@@ -52,7 +52,7 @@ function manejarError(provider, error) {
   } else if (error.request) {
       applogger.error(`Error ${provider} -> No se recibió respuesta: ${error.request}`);
   } else {
-      applogger.error(`Error ${provider} -> ${error.message}`);
+      applogger.error(`Error222 ${provider} -> ${error.message}`);
   }
 }
 
