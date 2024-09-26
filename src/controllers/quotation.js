@@ -31,7 +31,7 @@ const quota = async (req, res = response) => {
     const dat = req.body
     const date = req.body.Shipments.DateTime
     const fechaHora = DateTime.fromISO(date); 
-
+    applogger.error(`prueba`);
     // console.log('Fecha y Hora: ' + date)
     // console.log('Fecha y Hora: ' + fechaHora)
 
@@ -124,8 +124,8 @@ const quota = async (req, res = response) => {
             CompanyID: dat.company.CompanyID,
             branchoffices: dat.company.branchoffices,
             Collaborator: dat.company.Collaborator
-        };
-        applogger.error(`prueba`);
+        }; 
+        applogger.error(`prueba1`);
         let resFDX, resDeprisa, resUPS, resDHL, resCDR;
         const promises = [
             // quotaUPS(shipper, recipient, bus, uid, shipment, dat),
