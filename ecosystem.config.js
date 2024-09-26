@@ -12,7 +12,8 @@ module.exports = {
       env: {
         PORT:4000,
         PATH_GUIA: '/var/www/devback/Pakki_Rest/src/helpers/Guias',
-        URL_GUIA: 'D:/Desarrollo/Pakki/Pakki_Rest/src/helpers/Guias/Document', //'https://devfront.pakki.click/guias',
+        URL_GUIA: 'https://devfront.pakki.click/guias',
+        //URL_GUIA: 'D:/Desarrollo/Pakki/Pakki_Rest/src/helpers/Guias/Document', //'https://devfront.pakki.click/guias',
         ROOT_API:'/api/v1',
         ENVIROMENT:'Development Server',
         MONGO_URL:'mongodb://127.0.0.1:27017/devpakkiDB',
