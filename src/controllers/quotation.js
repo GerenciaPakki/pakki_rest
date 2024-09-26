@@ -130,9 +130,9 @@ const quota = async (req, res = response) => {
         const promises = [
             quotaUPS(shipper, recipient, bus, uid, shipment, dat),
             // quotation('DEPRISA', bus, uid, dat),
-            // quotaDHL(shipper, recipient, bus, uid, shipment, dat),
-            // quotaCDR(shipper, recipient, bus, uid, shipment, dat),
-            // quotaFDX(shipper, recipient, company, shipment, dat),           
+            quotaDHL(shipper, recipient, bus, uid, shipment, dat),
+            quotaCDR(shipper, recipient, bus, uid, shipment, dat),
+            quotaFDX(shipper, recipient, company, shipment, dat),           
         ];
 
         [resUPS, resDeprisa, resDHL, resCDR, resFDX] = await Promise.all(promises.map(p => p.catch(e => ({
