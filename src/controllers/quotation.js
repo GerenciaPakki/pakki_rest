@@ -128,11 +128,11 @@ const quota = async (req, res = response) => {
         applogger.error(`prueba1`);
         let resFDX, resDeprisa, resUPS, resDHL, resCDR;
         const promises = [
-            quotaUPS(shipper, recipient, bus, uid, shipment, dat),
-            quotation('DEPRISA', bus, uid, dat),
-            quotaDHL(shipper, recipient, bus, uid, shipment, dat),
+            // quotaUPS(shipper, recipient, bus, uid, shipment, dat),
+            // quotation('DEPRISA', bus, uid, dat),
+            // quotaDHL(shipper, recipient, bus, uid, shipment, dat),
             quotaCDR(shipper, recipient, bus, uid, shipment, dat),
-            quotaFDX(shipper, recipient, company, shipment, dat),           
+            // quotaFDX(shipper, recipient, company, shipment, dat),           
         ];
 
         [resUPS, resDeprisa, resDHL, resCDR, resFDX] = await Promise.all(promises.map(p => p.catch(e => ({

@@ -13,7 +13,6 @@ const { quotaFormat } = require('../controllers/formatJson');
 
 const router = Router();
 
-
 router.post('/', [
     validateJWT,packagingType//AuthFdxUs,AuthUpsUs,AuthUpsCo,
     // check('shippercity','Se Requiere la ciudad que remite de caracter obligatorio').not().isEmpty(),
