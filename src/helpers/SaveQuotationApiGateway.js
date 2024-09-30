@@ -19,7 +19,8 @@ async function quotation(provider, bus, uid, dat) {
     try {            
         return axios.post(url, dat, {}).then( async response => {
 
-            applogger.error('Response -> ', response)
+            applogger.error(`Response -> ', ${response}`)
+            console.log('Response -> ', response)
 
             const responseApiGateway = response.data.body;
             
