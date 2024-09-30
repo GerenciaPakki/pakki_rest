@@ -13,6 +13,7 @@ const dbConn = async() => {
     try {
         // const uri = "mongodb+srv://dev_pakki:T3cn0l0g14*@atlascluster.3v6nhtw.mongodb.net/devpakkiDB";
         const uri = `${mongoURL}`;
+        
         // process.env.DB_CNN
         mongoose.set("strictQuery", false);
 
@@ -24,6 +25,9 @@ const dbConn = async() => {
         }
         };
     
+        console.log(uri);
+        console.log(options);
+
         await mongoose.connect(uri);
         // console.log('Connection DB');
         

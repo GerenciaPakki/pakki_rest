@@ -131,7 +131,7 @@ const quota = async (req, res = response) => {
             // quotaUPS(shipper, recipient, bus, uid, shipment, dat),
             quotation('DEPRISA', bus, uid, dat),
             // quotaDHL(shipper, recipient, bus, uid, shipment, dat),
-            quotaCDR(shipper, recipient, bus, uid, shipment, dat),
+            // quotaCDR(shipper, recipient, bus, uid, shipment, dat),
             // quotaFDX(shipper, recipient, company, shipment, dat),           
         ];
 
