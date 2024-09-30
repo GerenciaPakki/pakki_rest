@@ -26,7 +26,7 @@ async function quotation(provider, bus, uid, dat) {
             console.log('Response.data.body -> ', responseApiGateway)
 
             const SurchargePakki = await Surcharge(provider,responseApiGateway,dat.Shipments.Shipment);
-
+        
             console.log('dat.Shipments.Shipment -> ', dat.Shipments.Shipment)
 
             const saveCDRQuota = new quotations(quotaJsonDataBase(responseApiGateway, bus, uid, dat, provider));

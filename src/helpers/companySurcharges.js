@@ -2,6 +2,7 @@ const { trusted } = require("mongoose");
 const { getMaxTRM } = require("../middleware/globalExternals");
 const companyDiscount = require("../models/companyDiscount");
 const { exceptions, error } = require("winston");
+const { ReturnDocument } = require("mongodb");
 
 
 let ServiceT = '';
@@ -412,10 +413,27 @@ async function Surcharge(Proveedor,responseApiGateway,Shipment) {
         }, { Data: 1, _id: 0 }
     ).where("Domestic").equals(true);
 
-    const surchargeCDR = CompanyDiscountDB[0].Data[0].RateIncrease;
-    const PakkiIncrease = CompanyDiscountDB[0].Data[0].PakkiIncrease;
-    const PakkiDiscount = CompanyDiscountDB[0].Data[0].PakkiDiscount;
-    const shipValue = parseInt(responseApiGateway.total);
+    let surchargeCDR = 0; 
+    let PakkiIncrease = 0;
+    let PakkiDiscount = 0;
+    let shipValue = 0;
+
+    if (CompanyDiscountDB.length > 0) {
+        surchargeCDR = CompanyDiscountDB[0].Data[0].RateIncrease;
+        PakkiIncrease = CompanyDiscountDB[0].Data[0].PakkiIncrease;
+        PakkiDiscount = CompanyDiscountDB[0].Data[0].PakkiDiscount;
+    }
+    else{
+        surchargeCDR = 0;
+        PakkiIncrease = 0;
+        PakkiDiscount = 0;
+    }
+    // const surchargeCDR = CompanyDiscountDB[0].Data[0].RateIncrease;
+    // const PakkiIncrease = CompanyDiscountDB[0].Data[0].PakkiIncrease;
+    // const PakkiDiscount = CompanyDiscountDB[0].Data[0].PakkiDiscount;
+    // const shipValue = parseInt(responseApiGateway.total);
+
+    shipValue = parseInt(responseApiGateway.total);
 
     // const FinalUserAmount = Math.round(shipValue * surchargeCDR)
     const FinalUserAmount = Math.ceil(shipValue + (shipValue * surchargeCDR));
