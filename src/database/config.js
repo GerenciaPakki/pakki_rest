@@ -28,7 +28,7 @@ const dbConn = async() => {
         console.log(uri);
         console.log(options);
 
-        await mongoose.connect(uri);
+        // await mongoose.connect(uri);
         // console.log('Connection DB');
         
     } catch (error) {
