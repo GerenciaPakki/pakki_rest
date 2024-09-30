@@ -29,9 +29,11 @@ async function quotation(provider, bus, uid, dat) {
             const saveCDRQuota = new quotations(quotaJsonDataBase(responseApiGateway, bus, uid, dat, provider));
                 
             saveCDRQuota.save();
-
+            console.log('SurchargePakki.Provider ->', SurchargePakki.Provider)
+            console.log('responseApiGateway -> ', responseApiGateway)
+            console.log('dat -> ', dat)
             Providers.push(responseQuota(SurchargePakki.Provider,responseApiGateway,dat));
-
+            console.log('Providers -> ', Providers)
             return Providers;
 
         }).catch(error => {                
