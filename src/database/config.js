@@ -18,17 +18,17 @@ const dbConn = async() => {
         mongoose.set("strictQuery", false);
 
         // Agregar las opciones de autenticación con el usuario y contraseña
-        const options = {
-        auth: {
-            user: `${user}`,
-            password: `${pwd}`
-        }
-        };
+        // const options = {
+        // auth: {
+        //     user: `${user}`,
+        //     password: `${pwd}`
+        // }
+        // };
     
         console.log(uri);
         console.log(options);
 
-        // await mongoose.connect(uri);
+        await mongoose.connect(uri);
         // console.log('Connection DB');
         
     } catch (error) {
