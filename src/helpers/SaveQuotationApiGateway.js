@@ -4,6 +4,7 @@ const { responseQuota, quotaJsonDataBase } = require('../structures/json/quota')
 const quotations = require('../models/quotations');
 const { Surcharge } = require('./companySurcharges');
 const { APIGATEWAY_COTIZAR } = require('../utils/config');
+const { error } = require('winston');
 
 
 
@@ -14,9 +15,12 @@ async function quotation(provider, bus, uid, dat) {
     // const url = 'http://localhost:3000/deprisa/cotizar';
     const url = APIGATEWAY_COTIZAR
     let Providers = [];
-    applogger.error(`url ${provider}: ${url}`)
+    // applogger.error(`url ${provider}: ${url}`)
     try {            
         return axios.post(url, dat, {}).then( async response => {
+
+            applogger.error('Response -> ', response)
+
             const responseApiGateway = response.data.body;
             
             const SurchargePakki = await Surcharge(provider,responseApiGateway,dat.Shipments.Shipment);
