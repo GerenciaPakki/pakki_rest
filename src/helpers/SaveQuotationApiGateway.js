@@ -19,12 +19,15 @@ async function quotation(provider, bus, uid, dat) {
     try {            
         return axios.post(url, dat, {}).then( async response => {
 
-            applogger.error(`Response.data -> ', ${response.data}`)
-            console.log('Response.data -> ', response.data)
-
+            
             const responseApiGateway = response.data.body;
             
+            applogger.error(`Response.data -> ', ${responseApiGateway}`)
+            console.log('Response.data.body -> ', responseApiGateway)
+
             const SurchargePakki = await Surcharge(provider,responseApiGateway,dat.Shipments.Shipment);
+
+            console.log('dat.Shipments.Shipment -> ', dat.Shipments.Shipment)
 
             const saveCDRQuota = new quotations(quotaJsonDataBase(responseApiGateway, bus, uid, dat, provider));
                 
