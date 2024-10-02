@@ -21,7 +21,7 @@ async function quotation(provider, bus, uid, dat) {
             const responseApiGateway = response.data.body;
                         
             // applogger.info(`Response.data -> ', ${responseApiGateway}`)
-            applogger.info(`Response.data -> ${JSON.stringify(responseApiGateway, null, 2)}`);
+            // applogger.info(`Response.data -> ${JSON.stringify(responseApiGateway, null, 2)}`);
             // console.log('Response.data.body -> ', responseApiGateway)
 
             const SurchargePakki = await Surcharge(provider,responseApiGateway,dat.Shipments.Shipment);

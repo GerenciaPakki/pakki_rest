@@ -161,8 +161,6 @@ async function quotaUPS(shipper, recipient, bus, uid, shipment, dat, res) {
                 const Domestic = dat.Shipments.documentShipment
                 const Weight = dat.Shipments.Shipment.Weight
                 const shippingValue = resp.NegotiatedRates[0].NetSummaryCharges[0].GrandTotal[0];
-
-
                 
                 const SurchargePakki = await SurchargePakkiQuotationUPS(ServiceType,shippingValue,ProvicerDiscount,Domestic,Weight);
                 
