@@ -165,7 +165,7 @@ async function quotaDHL(shipper, recipient, bus, uid, shipment, dat) {
     } else{
       return {
         ok: true,
-        msg: 'DHL -> Actualmente No contamos con cobertura para la ruta seleccionada'
+        msg: 'DHL -> (-1). Actualmente No contamos con cobertura para la ruta seleccionada'
       };
     }
 }

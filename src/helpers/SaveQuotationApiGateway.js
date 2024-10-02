@@ -17,26 +17,25 @@ async function quotation(provider, bus, uid, dat) {
     let Providers = [];
     // applogger.error(`url ${provider}: ${url}`)
     try {            
-        return axios.post(url, dat, {}).then( async response => {
-
-            
+        return axios.post(url, dat, {}).then( async response => {            
             const responseApiGateway = response.data.body;
-            
-            applogger.error(`Response.data -> ', ${responseApiGateway}`)
-            console.log('Response.data.body -> ', responseApiGateway)
+                        
+            // applogger.info(`Response.data -> ', ${responseApiGateway}`)
+            applogger.info(`Response.data -> ${JSON.stringify(responseApiGateway, null, 2)}`);
+            // console.log('Response.data.body -> ', responseApiGateway)
 
             const SurchargePakki = await Surcharge(provider,responseApiGateway,dat.Shipments.Shipment);
         
-            console.log('dat.Shipments.Shipment -> ', dat.Shipments.Shipment)
+            // console.log('dat.Shipments.Shipment -> ', dat.Shipments.Shipment)
 
             const saveCDRQuota = new quotations(quotaJsonDataBase(responseApiGateway, bus, uid, dat, provider));
                 
             saveCDRQuota.save();
-            console.log('SurchargePakki.Provider ->', SurchargePakki.Provider)
-            console.log('responseApiGateway -> ', responseApiGateway)
-            console.log('dat -> ', dat)
+            // console.log('SurchargePakki.Provider ->', SurchargePakki.Provider)
+            // console.log('responseApiGateway -> ', responseApiGateway)
+            // console.log('dat -> ', dat)
             Providers.push(responseQuota(SurchargePakki.Provider,responseApiGateway,dat));
-            console.log('Providers -> ', Providers)
+            // console.log('Providers -> ', Providers)
             return Providers;
 
         }).catch(error => {                

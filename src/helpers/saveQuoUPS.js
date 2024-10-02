@@ -190,7 +190,7 @@ async function quotaUPS(shipper, recipient, bus, uid, shipment, dat, res) {
     } else {
         return {
             ok: true,
-            msg: 'UPS -> Actualmente No contamos con cobertura para la ruta seleccionada'
+            msg: 'UPS -> (-1). Actualmente No contamos con cobertura para la ruta seleccionada'
         };
         // return ProvidersUPS.push('Actualmente No tenemos Convenio de Importacion con UPS');
         // return { ok: true, data: 'Actualmente No tenemos Convenio de Importacion con UPS' };

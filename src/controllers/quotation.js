@@ -30,10 +30,7 @@ const quota = async (req, res = response) => {
     const bus = req.bus;
     const dat = req.body
     const date = req.body.Shipments.DateTime
-    const fechaHora = DateTime.fromISO(date); 
-    applogger.error(`prueba`);
-    // console.log('Fecha y Hora: ' + date)
-    // console.log('Fecha y Hora: ' + fechaHora)
+    const fechaHora = DateTime.fromISO(date);         
 
     try {
         // Verificar si la hora es mayor a las 14:00
@@ -125,14 +122,14 @@ const quota = async (req, res = response) => {
             branchoffices: dat.company.branchoffices,
             Collaborator: dat.company.Collaborator
         }; 
-        applogger.error(`prueba1`);
+        
         let resFDX, resDeprisa, resUPS, resDHL, resCDR;
         const promises = [
-            // quotaUPS(shipper, recipient, bus, uid, shipment, dat),
+            quotaUPS(shipper, recipient, bus, uid, shipment, dat),
             quotation('DEPRISA', bus, uid, dat),
-            // quotaDHL(shipper, recipient, bus, uid, shipment, dat),
-            // quotaCDR(shipper, recipient, bus, uid, shipment, dat),
-            // quotaFDX(shipper, recipient, company, shipment, dat),           
+            quotaDHL(shipper, recipient, bus, uid, shipment, dat),
+            quotaCDR(shipper, recipient, bus, uid, shipment, dat),
+            quotaFDX(shipper, recipient, company, shipment, dat),           
         ];
 
         [resUPS, resDeprisa, resDHL, resCDR, resFDX] = await Promise.all(promises.map(p => p.catch(e => ({

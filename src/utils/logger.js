@@ -1,40 +1,88 @@
+// const { createLogger, transports, format } = require('winston');
+
+// const applogger = createLogger({
+//   level: 'error',
+//   format: format.combine(
+//     format.timestamp(),
+//     format.json()
+//   ),
+//   transports: [
+//     new transports.File({ filename: './logs/error.log', level: 'error' })
+//   ]
+// });
+
+// const apploggerWarn = createLogger({
+//   level: 'warn',
+//   format: format.combine(
+//     format.timestamp(),
+//     format.json()
+//   ),
+//   transports: [
+//     new transports.File({ filename: './logs/warn.log', level: 'warn' }),
+//   ]
+// });
+
+// const apploggerInfo = createLogger({
+//   level: 'info',
+//   format: format.combine(
+//     format.timestamp(),
+//     format.json()
+//   ),
+//   transports: [
+//     new transports.File({ filename: './logs/info.log', level: 'info' }),
+//   ]
+// });
+
+// module.exports = {
+//   applogger,
+//   apploggerWarn,
+//   apploggerInfo
+// };
+
 const { createLogger, transports, format } = require('winston');
 
+// Función para filtrar niveles específicos
+const filterLevel = (level) => {
+  return format((info) => {
+    return info.level === level ? info : false;
+  })();
+};
+
 const applogger = createLogger({
-  level: 'error',
   format: format.combine(
     format.timestamp(),
     format.json()
   ),
   transports: [
-    new transports.File({ filename: './logs/error.log', level: 'error' })
-  ]
-});
+    // Transport para errores (solo registrará mensajes de error)
+    new transports.File({
+      filename: './logs/error.log',
+      level: 'error',
+      format: format.combine(filterLevel('error')) // Filtra solo los mensajes de error
+    }),
 
-const apploggerWarn = createLogger({
-  level: 'warn',
-  format: format.combine(
-    format.timestamp(),
-    format.json()
-  ),
-  transports: [
-    new transports.File({ filename: './logs/error.log', level: 'warn' }),
-  ]
-});
+    // Transport para advertencias (solo registrará mensajes de advertencia)
+    new transports.File({
+      filename: './logs/warn.log',
+      level: 'warn',
+      format: format.combine(filterLevel('warn')) // Filtra solo los mensajes de advertencia
+    }),
 
-const apploggerInfo = createLogger({
-  level: 'info',
-  format: format.combine(
-    format.timestamp(),
-    format.json()
-  ),
-  transports: [
-    new transports.File({ filename: './logs/error.log', level: 'info' }),
+    // Transport para info (solo registrará mensajes informativos)
+    new transports.File({
+      filename: './logs/info.log',
+      level: 'info',
+      format: format.combine(filterLevel('info')) // Filtra solo los mensajes informativos
+    }),
+
+    // Opcional: Loguear en consola
+    new transports.Console({
+      format: format.simple(),
+      level: 'info'
+    })
   ]
 });
 
 module.exports = {
-  applogger,
-  apploggerWarn,
-  apploggerInfo
+  applogger
 };
