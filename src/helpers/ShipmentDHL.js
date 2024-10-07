@@ -11,6 +11,7 @@ const crypto = require('crypto');
 const { SurchargePakkiShipmentDHL } = require('./companySurcharges');
 const { converterPDF, guardarDocumentoBase64, guardarPkgsBase64, CartaResponsabilidadPDF, GetCartaResponsabilidadPDF } = require('./convertToPDF');
 const { DataSendMails } = require('./emailProvider');
+const { applogger } = require('../utils/logger');
 
 
 const randomBuffer = crypto.randomBytes(1);
@@ -111,7 +112,7 @@ async function shipmentDHL(dat) {
                         };
                         proceso.payGateway = payGateWay;
                         proceso.NumGuia = req1DHL.AirwayBillNumber[0]
-
+                        applogger.info('Generacion de guia: ' + NumGuia);
                         //TODO: SOLICITUD DE RECOLECCION PARA DHL
 
                         if (dat.Pickup.PickupRequired === true) {
@@ -157,8 +158,13 @@ async function shipmentDHL(dat) {
                         //TODO: ENVIO DE CORREO ELECTRONICO
                         const tipGuia = 'guia';
                         guia = await converterPDF(label, dhlcoId, tipGuia);
+                        applogger.info('Generacion de pdf: ' + guia);
                         rutaPdf = await guardarDocumentoBase64(label, dhlcoId, tipGuia)
+                        applogger.info('Guardar pdf ruta: ' + rutaPdf);
                         proceso.guia = rutaPdf
+
+                        
+
                         // TODO: pasamos los archivos a PDF para adjuntar al Email.
                         mailData = {
                             coid: dhlcoId,
@@ -194,11 +200,11 @@ async function shipmentDHL(dat) {
                             },
                         }
                         SendMailers = SendMails(mailData, guia);
-
+                        applogger.info('Enviado correo: ' + SendMailers);
                         proceso.email = await SendMailers.then(result => {
                             return result;
                         });
-
+                        applogger.info('Proceso terminado: ');
                         resolve(proceso);
                     } catch (error) {
                         reject(error);
@@ -273,6 +279,7 @@ async function shipmentDHL(dat) {
 
                 req2DHL = await REQ_2_ShipmentDHL(dat,proceso.NumGuia);
                 const PickupCode = req2DHL.ConfirmationNumber;
+                applogger.info('Solicitud de recoleccion: ' + PickupCode);
                 updatedValuesPickup = {
                     $set: {
                         Pickup: {
@@ -304,14 +311,20 @@ async function shipmentDHL(dat) {
 
                 const tipGuia = 'guia';
                 guia = await converterPDF(label.OutputImage[0], dhlcoId, tipGuia);
+                applogger.info('Generar pdf: ' + guia);
                 rutaPdfGuia = await guardarDocumentoBase64(label.OutputImage[0], dhlcoId, tipGuia);
+                applogger.info('Guardar pdf: ' + guia);
                 const tipProforma = 'proforma';
                 proforma = await converterPDF(package.DocImageVal[0], dhlcoId, tipProforma);
+                applogger.info('Guardar proforma: ' + proforma);
                 rutaPdfProforma = await guardarPkgsBase64(package.DocImageVal[0], dhlcoId, tipProforma)
+                applogger.info('Guardar proforma ruta: ' + rutaPdfProforma);
                 proceso.guia = rutaPdfGuia
                 proceso.proforma = rutaPdfProforma
                 const carta = await CartaResponsabilidadPDF()
+                applogger.info('Generar carta de responsanilidades: ' + carta);
                 const sendCarta = await GetCartaResponsabilidadPDF()
+                applogger.info('Guardar carta de responsanilidades: ' + sendCarta);
                 proceso.carta = carta
                 let mailData = {}
                 mailData = {
@@ -348,7 +361,9 @@ async function shipmentDHL(dat) {
                         shippingValue: dat.Provider.shippingValue,
                     },
                 }
+                applogger.info('Enviar email.');
                 SendMailers = await SendMailsPkg(mailData, guia, proforma, sendCarta);
+                applogger.info('Email enviado.' + SendMailers);
                 // console.log('SendMailers: ', SendMailers)
                 proceso.email = SendMailers
                 
@@ -356,7 +371,7 @@ async function shipmentDHL(dat) {
                     ok: true,
                     msg: proceso
                 });
-
+                applogger.info('Proceso terminado.');
                 // return proceso            
             }
         } else if (dat.Destination.CountryCode === "CO" && dat.Origin.CountryCode !== "CO") {
@@ -570,6 +585,8 @@ async function shipmentDHL(dat) {
                 ShipResDHL.push(ShipDHL);
                 proceso.DB = ShipResDHL[0].ShipmentID;
 
+                applogger.info('Se guardo la guia');
+
                 payGateway = {
                     ShipmentID: ShipResDHL[0].ShipmentID,
                     ShipmentCode: ShipResDHL[0].shipment.ShipmentCode,
@@ -590,6 +607,8 @@ async function shipmentDHL(dat) {
                 };
                 proceso.payGateway = payGateWay;
                 proceso.NumGuia = ShipmentCode
+
+                applogger.info('Guia No. ' + proceso.NumGuia);
 
                 //TODO: SOLICITUD DE RECOLECCION PARA DHL
 
@@ -623,13 +642,16 @@ async function shipmentDHL(dat) {
                 //TODO: ENVIO DE CORREO ELECTRONICO
                 // TODO: pasamos los archivos a PDF para adjuntar al Email.
                 
-
+                
                 const tipGuia = 'guia';
                 guia = await converterPDF(label.OutputImage[0], dhlcoId, tipGuia);
+                applogger.info('Guia pdf. ' + guia);
                 rutaPdfGuia = await guardarDocumentoBase64(label.OutputImage[0], dhlcoId, tipGuia);
+                applogger.info('Guardar documento ruta pdf. ' + rutaPdfGuia);
                 const tipProforma = 'proforma';
                 proforma = await converterPDF(package.DocImageVal[0], dhlcoId, tipProforma);
                 rutaPdfProforma = await guardarPkgsBase64(package.DocImageVal[0], dhlcoId, tipProforma)
+                applogger.info('Guardar proforms ruta. ' + rutaPdfProforma);
                 proceso.guia = rutaPdfGuia
                 proceso.proforma = rutaPdfProforma
                 const carta = await CartaResponsabilidadPDF()
@@ -671,6 +693,8 @@ async function shipmentDHL(dat) {
                     },
                 }
                 SendMailers = await SendMailsPkg(mailData, guia, proforma, sendCarta);
+                
+                applogger.info('Envio correo. ' + SendMailers);
                 // console.log('SendMailers: ', SendMailers)
                 proceso.email = SendMailers
                 
@@ -678,7 +702,7 @@ async function shipmentDHL(dat) {
                     ok: true,
                     msg: proceso
                 });
-
+                applogger.info('Proceso terminado.');
                 // return proceso            
             }
         }

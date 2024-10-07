@@ -39,7 +39,7 @@ async function quotation(provider, bus, uid, dat) {
             return Providers;
 
         }).catch(error => {                
-            applogger.error(`Error111 ${provider} -> ${error}`);            
+            applogger.error(`Error ${provider} -> ${error}`);            
             return Providers.push(`Error111 ${provider} -> ${error.message}`);
         });
         
