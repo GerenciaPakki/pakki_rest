@@ -71,8 +71,9 @@ async function shipmentDHL(dat) {
                 return new Promise(async (resolve, reject) => {
                 
                     try {
-
+                        applogger.info('Generar guia')
                         req1DHL = await REQ_1_ShipmentDHL(dat);
+                        applogger.info('Genrerar guia realizado: ' + req1DHL)
                         // console.log('req1DHL: ', req1DHL)
                         //TODO: CARGAR DATOS A ShipmentDBDHL
                         // console.log('dat.Provider.ShipCod: ', dat.Provider.ShipCod)
@@ -81,16 +82,19 @@ async function shipmentDHL(dat) {
 
                         shippingValue = req1DHL.ShippingCharge[0];
                         ServiceType = req1DHL.ProductShortName[0];
+                        applogger.info('Calcular tarifa')
                         SurchargePakki = await SurchargePakkiShipmentDHL(ServiceType, shippingValue, Domestic, Weight);
-
+                        applogger.info('Calcular tarifa realizado: ' + SurchargePakki)
                         ShipmentCode = req1DHL.AirwayBillNumber[0];
                         label = req1DHL.LabelImage[0].OutputImage[0];
                         package = [{}];
 
+                        applogger.info('Crear solicitud de compra de servicio')
                         ShipDHL = new shipments(
                             ShipmentDBDHL(dhlcoId, dat, ShipmentCode, label, package, req1DHL, SurchargePakki)
                         );
                         ShipDHLDB = await ShipDHL.save();
+                        applogger.info('Crear solicitud de compra de servicio, realizada.')
                         ShipResDHL.push(ShipDHLDB);
                         proceso.DB = ShipResDHL[0].ShipmentID;
 
@@ -281,7 +285,7 @@ async function shipmentDHL(dat) {
 
                 req2DHL = await REQ_2_ShipmentDHL(dat,proceso.NumGuia);
                 const PickupCode = req2DHL.ConfirmationNumber;
-                applogger.info('Solicitud de recoleccion: ' + PickupCode);
+                ('Solicitud de recoleccion: ' + PickupCode);
                 updatedValuesPickup = {
                     $set: {
                         Pickup: {
@@ -347,7 +351,7 @@ async function shipmentDHL(dat) {
                         email: dat.Destination.ContactEmail,
                         country: dat.Destination.CountryCode,
                         city: dat.Destination.CityName,
-                        PostalCode: dat.Destination.PostalCode
+                        PostalCode: dat.Destination.PostalCodapplogger.infoe
                     },
                     shipment: {
                         PackQuantity: dat.Shipments.Shipment.PackQuantity,
