@@ -65,6 +65,8 @@ async function shipmentDHL(dat) {
             let ShipDHLDB = {};
             let resPayGate = {};
 
+            applogger.info('Exportacion')
+
             if (dat.Shipments.documentShipment === true) {
                 return new Promise(async (resolve, reject) => {
                 
@@ -158,9 +160,9 @@ async function shipmentDHL(dat) {
                         //TODO: ENVIO DE CORREO ELECTRONICO
                         const tipGuia = 'guia';
                         guia = await converterPDF(label, dhlcoId, tipGuia);
-                        applogger.info('Generacion de pdf: ' + guia);
+                        applogger.info('Generacion de pdf');
                         rutaPdf = await guardarDocumentoBase64(label, dhlcoId, tipGuia)
-                        applogger.info('Guardar pdf ruta: ' + rutaPdf);
+                        applogger.info('Guardar pdf ruta');
                         proceso.guia = rutaPdf
 
                         
@@ -311,14 +313,14 @@ async function shipmentDHL(dat) {
 
                 const tipGuia = 'guia';
                 guia = await converterPDF(label.OutputImage[0], dhlcoId, tipGuia);
-                applogger.info('Generar pdf: ' + guia);
+                applogger.info('Generar pdf: ');
                 rutaPdfGuia = await guardarDocumentoBase64(label.OutputImage[0], dhlcoId, tipGuia);
-                applogger.info('Guardar pdf: ' + guia);
+                applogger.info('Guardar pdf ruta');
                 const tipProforma = 'proforma';
                 proforma = await converterPDF(package.DocImageVal[0], dhlcoId, tipProforma);
-                applogger.info('Guardar proforma: ' + proforma);
+                applogger.info('Guardar proforma.');
                 rutaPdfProforma = await guardarPkgsBase64(package.DocImageVal[0], dhlcoId, tipProforma)
-                applogger.info('Guardar proforma ruta: ' + rutaPdfProforma);
+                applogger.info('Guardar proforma.');
                 proceso.guia = rutaPdfGuia
                 proceso.proforma = rutaPdfProforma
                 const carta = await CartaResponsabilidadPDF()
@@ -367,12 +369,12 @@ async function shipmentDHL(dat) {
                 // console.log('SendMailers: ', SendMailers)
                 proceso.email = SendMailers
                 
+                applogger.info('Proceso terminado.');
+
                 return({
                     ok: true,
                     msg: proceso
-                });
-                applogger.info('Proceso terminado.');
-                // return proceso            
+                });                          
             }
         } else if (dat.Destination.CountryCode === "CO" && dat.Origin.CountryCode !== "CO") {
 
@@ -405,9 +407,10 @@ async function shipmentDHL(dat) {
             let ShipDHLDB = {};
             let resPayGate = {};
 
-            
+            applogger.info('Importacion')
 
             if (dat.Shipments.documentShipment === true) {
+                fo('Importacion documento')
                 return new Promise(async (resolve, reject) => {
                 
                     try {
@@ -573,6 +576,9 @@ async function shipmentDHL(dat) {
                 const SurchargePakki = await SurchargePakkiShipmentDHL(ServiceType,shippingValue,Domestic,Weight);
                 // console.log(SurchargePakki)
                 
+                applogger.info('Importacion diferente a documento')
+                
+
                 ShipmentCode = req1DHL.AirwayBillNumber[0];
                 const label = req1DHL.LabelImage[0];
                 const package = req1DHL.LabelImage[0].MultiLabels[0].MultiLabel[0];
