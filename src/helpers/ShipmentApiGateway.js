@@ -23,9 +23,9 @@ const fchHH = date.toISO({ includeOffset: true });
 
 id = "";
 
-global.ShipCDR = [];
-global.ProvidersCDR = [];
-global.jsonResCDR = [];
+// global.ShipCDR = [];
+// global.ProvidersCDR = [];
+// global.jsonResCDR = [];
 global.proceso = {
   DB: "",
   payGateway: "",
@@ -41,12 +41,12 @@ function delay(ms) {
 async function shipmentApiGateway(bus, uid, dat) {
 
   try {
-    const cdrcoId = `cdrco-${await GenerateID()}`;
+    const depcoId = `depco-${await GenerateID()}`;
 
     const fechaOriginal = dat.Pickup.DateTime;
     
     // if (dat.Origin.CountryCode === "CO") {
-      ShipResCDR = [];
+      // ShipResCDR = [];
       proceso = {}; 
       
       const daneCode = await DaneCodeCity(dat.Origin.CityName, dat.Destination.CityName)
@@ -62,7 +62,7 @@ async function shipmentApiGateway(bus, uid, dat) {
       const package = [{}];
     
       const Ship = new shipments(
-        ShipmentDB(cdrcoId, dat, codigoShipment.data.code, package, codigoEtiqueta)
+        ShipmentDB(depcoId, dat, codigoShipment.data.code, package, codigoEtiqueta)
       );
 
       Ship.save();
@@ -142,13 +142,13 @@ async function shipmentApiGateway(bus, uid, dat) {
       //TODO: ENVIO DE CORREO ELECTRONICO      
       // const dataMail = await DataSendMails(dat, cdrcoId);
       const tipGuia = 'guia';
-      const guia = await converterPDF(codigoEtiqueta.code,cdrcoId, tipGuia);
+      const guia = await converterPDF(codigoEtiqueta.code,depcoId, tipGuia);
       console.log('Paso Paquete : 7', )
-      const rutaPdf = await guardarDocumentoBase64(codigoEtiqueta.code, cdrcoId, tipGuia)
+      const rutaPdf = await guardarDocumentoBase64(codigoEtiqueta.code, depcoId, tipGuia)
       console.log('Paso Paquete : 8',rutaPdf )
       proceso.guia = rutaPdf
       const mailData = {
-        coid: cdrcoId,
+        coid: depcoId,
         ShipmentCode: Ship.shipment.ShipmentCode,
         PickupCode: PickupCode,
         origin: {

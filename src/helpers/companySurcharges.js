@@ -3,14 +3,11 @@ const { getMaxTRM } = require("../middleware/globalExternals");
 const companyDiscount = require("../models/companyDiscount");
 const { exceptions, error } = require("winston");
 const { ReturnDocument } = require("mongodb");
-
+const { applogger } = require('../utils/logger');
 
 let ServiceT = '';
 
-
 // Esta funcion Alimenta Quotation y Shipment dCDR.
-
-
 async function SurchargePakkiDHL(ServiceType,shippingValue,Domestic,Weight) { 
 
     
@@ -32,7 +29,14 @@ async function SurchargePakkiDHL(ServiceType,shippingValue,Domestic,Weight) {
     );
 
     const trmHistory = await getMaxTRM();
-    const Trm15Dias = trmHistory.value;
+    let Trm15Dias = 1;
+    if(trmHistory == null)
+    {
+        applogger.info('No hay definfida una TRM actualizado ')
+    }
+    else{
+        Trm15Dias = trmHistory.value;
+    }
 
     // console.log(shippingValue);
 

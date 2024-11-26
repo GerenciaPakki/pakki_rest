@@ -48,9 +48,13 @@ async function shipmentUPS(dat) {
       proceso = {};
       let PickupCode = ''
 
-      const daneCode = await DaneCodeCity(dat.Origin.CityName, dat.Destination.CityName)
-      dat.Origin.DANECode = daneCode.origin;
-      dat.Destination.DANECode = daneCode.destination;
+
+      if(dat.Destination.CountryCode === "CO")
+      {
+        const daneCode = await DaneCodeCity(dat.Origin.CityName, dat.Destination.CityName)
+        dat.Origin.DANECode = daneCode.origin;
+        dat.Destination.DANECode = daneCode.destination;
+      }
       
       const req1CDR = await REQ_1_ShipmentCDR(dat);
       const req2CDR = await REQ_2_ShipmentCDR(req1CDR);
@@ -83,9 +87,12 @@ async function shipmentUPS(dat) {
         shippingValue: ShipResCDR[0].Provider.shippingValue
       };
 
-      const resPayGate = await PayShipment(payGateway).then(result => {
-        return result;
-      });
+      const resPayGate = await PayShipment(payGateway);      
+
+      // const resPayGate = await PayShipment(payGateway).then(result => {
+      //   return result;
+      // });
+
 
       const payGateWay = {
         billPayment: resPayGate.billPayment.paymentType,
@@ -174,15 +181,47 @@ async function shipmentUPS(dat) {
         },
       }
 
+      let exitoso = false;
+      let result = '';
       const SendMailers = SendMails(mailData, guia);
       proceso.email = await SendMailers.then(result => {
-        return result;
+        this.exitoso = true;
+        // this.result = result;
+        proceso.email = result;
+        // return result;
       });    
 
-      return({
-        ok: false,
-        msg: proceso
-      });
+
+      // try {
+      //   const SendMailers =  SendMails(mailData, guia);
+      //   proceso.email = await SendMailers.then(result => {
+      //     return{
+      //       ok: true,
+      //       msg: result
+      //     };
+      //   // return result;
+      // });     
+      // } catch (emailError) {
+      //   return{
+      //     ok: false,
+      //     msg: proceso
+      //   };
+      // }
+      
+      if(this.exitoso){
+        return{
+          ok: true,
+          msg: proceso
+        };
+      }
+      else{
+        return{
+          ok: false,
+          msg: proceso
+        };
+      }
+
+      
 
       // return proceso;
       

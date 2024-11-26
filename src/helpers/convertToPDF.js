@@ -7,6 +7,7 @@ const sharp = require('sharp');
 const pathGuia = config.PATH_GUIA
 const urlGuia = config.URL_GUIA
 const { applogger } = require('../utils/logger');
+const { buffer } = require('superagent');
 
 async function converterPDF(base64Data, coId, tipDocu) {
   try {
@@ -43,9 +44,9 @@ async function guardarDocumentoBase64(base64Data, coId, tipDocu) {
    console.log('Datos de Ingreso a URL_PDF: ',rutaNormalizada)
 
     //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
-    const partesRuta = rutaNormalizada.split(pathGuia);
-    const urlParte = partesRuta[1];
-    url = `${urlGuia}${urlParte}`;
+    // const partesRuta = rutaNormalizada.split(pathGuia);
+    // const urlParte = partesRuta[1];
+    url = `${urlGuia}/${proveedor}/${fileName}`;
     
     // Devolver la ruta del archivo guardado
     return url;
@@ -73,8 +74,8 @@ async function guardarPkgsBase64(base64Data, coId, tipDocu) {
 
     //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
     const partesRuta = rutaNormalizada.split(pathGuia);
-    const urlParte = partesRuta[1];
-   url = `${urlGuia}${urlParte}`;
+    // const urlParte = partesRuta[1];
+   url = `${urlGuia}/${proveedor}/${fileName}`;
     // Devolver la ruta del archivo guardado
     return url;
   } catch (error) {
@@ -83,18 +84,42 @@ async function guardarPkgsBase64(base64Data, coId, tipDocu) {
   }
 }
 // Corregido para CDR
+// async function CartaResponsabilidadPDF() {
+//   let url = ''
+//   try {
+//     const ruta = '/var/www/devback/Pakki_Rest/src/helpers/Guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
+//     const rutaDestino = path.join(__dirname, 'Guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf');
+//     // Normaliza la ruta para manejar diferencias entre Windows y Unix
+//     const rutaNormalizada = path.normalize(ruta);
+//     // const rutaNormalizada1 = path.normalize(rutaDestino);
+
+//     //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
+//     // const partesRuta = rutaNormalizada.split('/var/www/devback/Pakki_Rest/src/helpers/Guias/');
+//     // const urlParte = partesRuta[1];
+//     // url = `https://devfront.pakki.click/guias/${urlParte}`;
+//     url = `https://devfront.pakki.click/guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf`;
+//     // Devolver la ruta del archivo guardado
+//     return url;
+//   } catch (error) {
+//     console.error('Error al guardar la cadena Base64 en el archivo:', error);
+//     throw error;
+//   }
+// }
+
 async function CartaResponsabilidadPDF() {
   let url = ''
   try {
-    const ruta = '/var/www/devback/Pakki_Rest/src/helpers/Guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
+    // const ruta = '/var/www/devback/Pakki_Rest/src/helpers/Guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
 
-    // Normaliza la ruta para manejar diferencias entre Windows y Unix
-    const rutaNormalizada = path.normalize(ruta);
+    // // Normaliza la ruta para manejar diferencias entre Windows y Unix
+    // const rutaNormalizada = path.normalize(ruta);
 
-    //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
-    const partesRuta = rutaNormalizada.split('/var/www/devback/Pakki_Rest/src/helpers/Guias/');
-    const urlParte = partesRuta[1];
-    url = `https://devfront.pakki.click/guias/${urlParte}`;
+    // //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
+    // const partesRuta = rutaNormalizada.split('/var/www/devback/Pakki_Rest/src/helpers/Guias/');
+    // const urlParte = partesRuta[1];
+    // // url = `https://devfront.pakki.click/guias/${urlParte}`;
+    url = path.normalize('https://devfront.pakki.click/guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf');
+
     // Devolver la ruta del archivo guardado
     return url;
   } catch (error) {
@@ -110,15 +135,18 @@ async function GetCartaResponsabilidadPDF() {
     //const rutaWindows = 'C:\\Users\\LAMUX\\Desktop\\Pakki\\portal\\Pakki_Rest\\src\\helpers\\Guias\\Document\\CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
     // console.log('pathGuia: ', pathGuia)
     const rutaUbuntu = `${pathGuia}/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf`;
-
+    // const ruta1 = 'D:\\Desarrollo\\Pakki\\Pakki_Rest\\src\\helpers\\Guias\\Document\\CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
     // Lee el contenido del archivo PDF
-    const contenidoPDF = fs.readFileSync(rutaUbuntu);
+    const contenidoPDF = fs.readFileSync(path.normalize(rutaUbuntu));
+    // const contenidoPDF = fs.readFileSync(ruta1);
     console.log('contenidoPDF: ', contenidoPDF)
 
     return contenidoPDF;
   } catch (error) {
     console.error('Error al leer el archivo PDF:', error);
-    applogger.error(`Error en GetCartaResponsabilidadPDF > No se pudo leer la carta de responsanilidades. Error: ${error}`);
+    applogger.error(`Error en GetCartaResponsabilidadPDF > No se pudo leer la carta de responsanilidades. Error: ${error}`);   
+    const pdfVacio = Buffer.from('%PDF-1.4\n1 0 obj\n<<>>\nendobj\nxref\n0 1\n0000000000 65535 f \ntrailer\n<<>>\nstartxref\n0\n%%EOF');
+    return pdfVacio;
     // throw error;
   }
 }
@@ -216,8 +244,8 @@ async function savePDFInPath(pdf, coId, tipDocu) {
 
     //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
     const partesRuta = rutaNormalizada.split(pathGuia);
-    const urlParte = partesRuta[1];
-    url = `${urlGuia}${urlParte}`;
+    // const urlParte = partesRuta[1];
+    url = `${urlGuia}/${proveedor}/${fileName}`;
     // Devolver la ruta del archivo guardado
     return url;
     // console.log('Archivo PDF guardado exitosamente en:', rutaCompleta);

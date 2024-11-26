@@ -124,31 +124,38 @@ const quota = async (req, res = response) => {
         }; 
         
         let resFDX, resDeprisa, resUPS, resDHL, resCDR;
+        let Domestic = (shipper.countryCode === "CO" && recipient.countryCode == "CO")? true: false;
         const promises = [
             quotaUPS(shipper, recipient, bus, uid, shipment, dat),
-            quotation('DEPRISA', bus, uid, dat),
+            Domestic? quotation('DEPRISA', bus, uid, dat): Promise.resolve(null),
             quotaDHL(shipper, recipient, bus, uid, shipment, dat),
-            quotaCDR(shipper, recipient, bus, uid, shipment, dat),
+            Domestic? quotaCDR(shipper, recipient, bus, uid, shipment, dat): Promise.resolve(null),
             quotaFDX(shipper, recipient, company, shipment, dat),           
         ];
+
+        // [resDeprisa] = await Promise.all(promises.map(p => p.catch(e => ({
+        //     ok: false,
+        //     msg: `Error: ${e.message}`
+        // }))));
 
         [resUPS, resDeprisa, resDHL, resCDR, resFDX] = await Promise.all(promises.map(p => p.catch(e => ({
             ok: false,
             msg: `Error: ${e.message}`
         }))));
 
-        // [resUPS, resDeprisa, resDHL, resCDR, resFDX] = await Promise.all(promises.map(p => p.catch(e => ({
-        //     ok: false,
-        //     msg: `Error: ${e.message}`
-        // }))));
-
-        res.status(200).json({
+        const response = {
             FDX: resFDX,
             DEPRISA: resDeprisa,
             UPS: resUPS,
             DHL: resDHL,
             CDR: resCDR
-        });
+        };
+
+        const filteredResponse = Object.fromEntries(
+            Object.entries(response).filter(([_, value]) => value !== null)
+        );
+        
+        res.status(200).json(filteredResponse);
         
     } catch (error) {
         applogger.error(`Error en QUOCL-4O1 > quota: Error al Realizar la Quotation, uid: ${uid}, bus: ${bus}, error: ${error}`);

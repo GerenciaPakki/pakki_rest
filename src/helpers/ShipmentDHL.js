@@ -351,7 +351,7 @@ async function shipmentDHL(dat) {
                         email: dat.Destination.ContactEmail,
                         country: dat.Destination.CountryCode,
                         city: dat.Destination.CityName,
-                        PostalCode: dat.Destination.PostalCodapplogger.infoe
+                        PostalCode: dat.Destination.PostalCode
                     },
                     shipment: {
                         PackQuantity: dat.Shipments.Shipment.PackQuantity,
