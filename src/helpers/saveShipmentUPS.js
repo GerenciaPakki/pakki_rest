@@ -33,6 +33,7 @@ async function REQ_1_ShipmentUPS(dat) {
   let resp = ''
   let dataLabel = {}
 
+try {
   ShipUPS_XML = mustache.render(xmlShipDocUPS, dat);
 
     applogger.info(`shipmentUPS 2.1: ${url}`)
@@ -81,7 +82,9 @@ async function REQ_1_ShipmentUPS(dat) {
           msg: error
         };
       });
-
+    } catch (error) {
+      applogger.error(`shipmentUPS 2.5: ${error}`)
+    }
 }
 
 
