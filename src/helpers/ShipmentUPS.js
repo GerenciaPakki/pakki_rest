@@ -49,6 +49,7 @@ async function shipmentUPS(dat) {
       proceso = {};
       let PickupCode = ''
 
+      applogger.info('shipmentUPS 1')
 
       if(dat.Destination.CountryCode === "CO")
       {
@@ -60,10 +61,16 @@ async function shipmentUPS(dat) {
       // const req1CDR = await REQ_1_ShipmentCDR(dat);
       // const req2CDR = await REQ_2_ShipmentCDR(req1CDR);
 
+      applogger.info('shipmentUPS 2')
+
       const req1CDR = await REQ_1_ShipmentUPS(dat);
+
+      applogger.info('shipmentUPS 3')
+
       const req2CDR = await REQ_2_ShipmentUPS(dat, req1CDR);
       
-      
+      applogger.info('shipmentUPS 4')
+
       const ShipmentCode = req1CDR.ShipmentCode;
       const label = req2CDR.LabelImage;
               
@@ -73,11 +80,15 @@ async function shipmentUPS(dat) {
         ShipmentDBCDR(cdrcoId, dat, ShipmentCode, package, req2CDR)
       );
 
+      applogger.info('shipmentUPS 5')
+
       await ShipCDR.save();
       ShipResCDR.push(ShipCDR);
       proceso.NumGuia = ShipmentCode
       dat.Provider.ShipCod = ShipmentCode
       proceso.DB = ShipResCDR[0].ShipmentID;
+
+      applogger.info('shipmentUPS 6')
 
       //TODO: PASARELA DE PAGO (paymentGateway) A SHIPMENT Y ACTUALIZA billPayment
       const payGateway = {
@@ -91,12 +102,15 @@ async function shipmentUPS(dat) {
         shippingValue: ShipResCDR[0].Provider.shippingValue
       };
 
+      applogger.info('shipmentUPS 7')
+
       const resPayGate = await PayShipment(payGateway);      
 
       // const resPayGate = await PayShipment(payGateway).then(result => {
       //   return result;
       // });
 
+      applogger.info('shipmentUPS 8')
 
       const payGateWay = {
         billPayment: resPayGate.billPayment.paymentType,
@@ -108,6 +122,9 @@ async function shipmentUPS(dat) {
 
       if (dat.Pickup.PickupRequired === true) {
         const req3CDR = await REQ_3_ShipmentCDR(dat);
+
+        applogger.info('shipmentUPS 9')
+
         // console.log(req3CDR)
         PickupCode = req3CDR;   
         const updatedValuesPickup = {
@@ -141,7 +158,8 @@ async function shipmentUPS(dat) {
         proceso.pickup = dataLabel
       }
 
-      
+      applogger.info('shipmentUPS 10')
+
       //TODO: ENVIO DE CORREO ELECTRONICO
       
       // const dataMail = await DataSendMails(dat, cdrcoId);
@@ -149,8 +167,9 @@ async function shipmentUPS(dat) {
     
       // const guia = await converterPDF(label,cdrcoId, tipGuia);
       const guia = await converterPDF_UPS(label,cdrcoId, tipGuia);
+      applogger.info('shipmentUPS 11')
       const rutaPdf = await savePDFInPath(guia, cdrcoId, tipGuia);
-      
+      applogger.info('shipmentUPS 12')
       // const rutaPdf = await guardarDocumentoBase64(label, cdrcoId, tipGuia)
       proceso.guia = rutaPdf
       const mailData = {
@@ -189,6 +208,8 @@ async function shipmentUPS(dat) {
         },
       }
 
+      applogger.info('shipmentUPS 13')
+
       let exitoso = false;
       let result = '';
       const SendMailers = SendMails(mailData, guia);
@@ -199,6 +220,7 @@ async function shipmentUPS(dat) {
         // return result;
       });    
 
+      applogger.info('shipmentUPS 14')
 
       // try {
       //   const SendMailers =  SendMails(mailData, guia);
@@ -216,6 +238,8 @@ async function shipmentUPS(dat) {
       //   };
       // }
       
+      applogger.info('shipmentUPS 15')
+
       if(this.exitoso){
         return{
           ok: true,
