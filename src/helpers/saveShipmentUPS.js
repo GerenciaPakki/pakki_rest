@@ -74,8 +74,7 @@ async function REQ_1_ShipmentUPS(dat) {
         // return resp;
 
       }).catch(error => {
-        // console.log('Error de UPS CO_INT: ', error.response);
-        //   console.log('Error de UPS CO Destalle: ', error);
+        applogger.error(`shipmentUPS 2.4: ${error}`)
         return {
           OK:false,
           error: 'Error UPS_CO Generar Guia: SaveShipmentUPS01',
