@@ -1,11 +1,12 @@
 const { DateTime } = require('luxon');
 const shipments = require('../models/shipments');
-const { REQ_1_ShipmentCDR, REQ_2_ShipmentCDR, REQ_3_ShipmentCDR } = require('./saveShipmentCDR');
+// const { REQ_1_ShipmentCDR, REQ_2_ShipmentCDR, REQ_3_ShipmentCDR } = require('./saveShipmentCDR');
+const { REQ_1_ShipmentUPS, REQ_2_ShipmentUPS, REQ_3_ShipmentCDR } = require('./saveShipmentUPS');
 const { PayShipment } = require('./payGateway');
 const { SendMails } = require('./sendMail');
 const { SurchargePakkiDomesticCDR } = require('./companySurcharges');
 const { ShipmentDBCDR } = require('../structures/xml/shipCDR');
-const { converterPDF, guardarDocumentoBase64, savePDFInPath } = require('./convertToPDF');
+const { converterPDF, guardarDocumentoBase64, savePDFInPath, convertBase64ToPDF, convertirImagenAPDF, converterPDF_UPS } = require('./convertToPDF');
 const { SendMailsCDR, DataSendMails } = require('./emailProvider');
 const { pakkiSecutivo, generateUID, GenerateID } = require('./pakkiSecutivo');
 const crypto = require('crypto');
@@ -38,7 +39,7 @@ global.proceso = {
 //async function shipmentUPS(shipper, recipient, shipment, Pickup, Provider, company, dat) {  
 async function shipmentUPS(dat) {  
   try {
-    const cdrcoId = `cdrco-${await GenerateID()}`;
+    const cdrcoId = `upsco-${await GenerateID()}`;
 
     const fechaOriginal = dat.Pickup.DateTime;
     const fechaSinHora = DateTime.fromISO(fechaOriginal).toISODate();
@@ -56,12 +57,15 @@ async function shipmentUPS(dat) {
         dat.Destination.DANECode = daneCode.destination;
       }
       
-      const req1CDR = await REQ_1_ShipmentCDR(dat);
-      const req2CDR = await REQ_2_ShipmentCDR(req1CDR);
+      // const req1CDR = await REQ_1_ShipmentCDR(dat);
+      // const req2CDR = await REQ_2_ShipmentCDR(req1CDR);
+
+      const req1CDR = await REQ_1_ShipmentUPS(dat);
+      const req2CDR = await REQ_2_ShipmentUPS(dat, req1CDR);
       
       
       const ShipmentCode = req1CDR.ShipmentCode;
-      const label = req2CDR.rotulos;
+      const label = req2CDR.LabelImage;
               
       const package = [{}];
 
@@ -142,8 +146,12 @@ async function shipmentUPS(dat) {
       
       // const dataMail = await DataSendMails(dat, cdrcoId);
       const tipGuia = 'guia';
-      const guia = await converterPDF(label,cdrcoId, tipGuia);
-      const rutaPdf = await guardarDocumentoBase64(label, cdrcoId, tipGuia)
+    
+      // const guia = await converterPDF(label,cdrcoId, tipGuia);
+      const guia = await converterPDF_UPS(label,cdrcoId, tipGuia);
+      const rutaPdf = await savePDFInPath(guia, cdrcoId, tipGuia);
+      
+      // const rutaPdf = await guardarDocumentoBase64(label, cdrcoId, tipGuia)
       proceso.guia = rutaPdf
       const mailData = {
         coid: cdrcoId,

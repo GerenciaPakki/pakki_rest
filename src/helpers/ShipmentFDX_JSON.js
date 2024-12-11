@@ -223,7 +223,21 @@ async function shipmentFDX(shipper, recipient, shipment, Pickup, Provider, compa
       proceso.email = await SendMailers.then(result => {
         return result;
       });
-      return proceso
+
+      // if(this.exitoso){
+        return{
+          ok: true,
+          msg: proceso
+        };
+      // }
+      // else{
+      //   return{
+      //     ok: false,
+      //     msg: proceso
+      //   };
+      // }
+
+      // return proceso
 
     } else if ((shipper.countryCode === "CO" && recipient.countryCode !== "CO") || (shipper.countryCode !== "CO" && recipient.countryCode === "CO" )) {
 
@@ -435,18 +449,37 @@ async function shipmentFDX(shipper, recipient, shipment, Pickup, Provider, compa
           return result;
         });
       }
-      return proceso
+
+      // if(this.exitoso){
+        return{
+          ok: true,
+          msg: proceso
+        };
+      // }
+      // else{
+      //   return{
+      //     ok: false,
+      //     msg: proceso
+      //   };
+      // }
+
+
+      // return proceso
+
+      
 
     } else if (shipper.countryCode === "US" && recipient.countryCode === "US") {
 
         return {
+            ok: false,
             msg: 'Aqui vamos con FDX Envios Nacionales desde US'
         };
         
     } else if (shipper.countryCode === "US") {
 
         return {
-            msg: 'Aqui vamos con FDX Envios Internacional desde US'            
+          ok: false,
+          msg: 'Aqui vamos con FDX Envios Internacional desde US'            
         };      
     }
   // } 

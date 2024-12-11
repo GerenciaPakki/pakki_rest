@@ -8,6 +8,7 @@ const pathGuia = config.PATH_GUIA
 const urlGuia = config.URL_GUIA
 const { applogger } = require('../utils/logger');
 const { buffer } = require('superagent');
+const os = require('os');
 
 async function converterPDF(base64Data, coId, tipDocu) {
   try {
@@ -15,7 +16,13 @@ async function converterPDF(base64Data, coId, tipDocu) {
     // Crea un buffer a partir de la cadena Base64
     const pdf = Buffer.from(base64Data, 'base64');
 
+    // const pngBuffer = await sharp(pdf).toFormat('jpeg').toBuffer();
+    // const img = pngBuffer.toString('base64');
+
+    // const pdf1 = Buffer.from(img, 'base64');
+
     await savePDFInPath(pdf, coId, tipDocu)
+    // await savePDFInPath(pngBuffer, coId, tipDocu)
 
     return pdf;
   } catch (error) {
@@ -128,62 +135,131 @@ async function CartaResponsabilidadPDF() {
   }
 }
 
+
+
 async function GetCartaResponsabilidadPDF() {
   try {
-    // Validacion para mi equipo local de Desarrollo
-    let ruta = '';
-    //const rutaWindows = 'C:\\Users\\LAMUX\\Desktop\\Pakki\\portal\\Pakki_Rest\\src\\helpers\\Guias\\Document\\CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
-    // console.log('pathGuia: ', pathGuia)
-    const rutaUbuntu = `${pathGuia}/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf`;
-    // const ruta1 = 'D:\\Desarrollo\\Pakki\\Pakki_Rest\\src\\helpers\\Guias\\Document\\CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
+    // Detección del sistema operativo
+    // const isWindows = os.platform() === 'win32';
+
+    const ruta = `${pathGuia}/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf`;
+    // const ruta1 = path.join(pathGuia, '/Document', 'CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf');
+    // console.log(ruta);
+    // const ruta2 = path.resolve(pathGuia, 'Document', 'CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf');
+    // // Define la ruta en función del sistema operativo
+    // const ruta = isWindows 
+    //   ? path.join(pathGuia, 'CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf')
+    //   : '/ruta/ubuntu/Pakki/portal/Pakki_Rest/src/helpers/Guias/Document/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
+
+    // Normaliza la ruta para evitar inconsistencias
+    const rutaNormalizada = path.normalize(ruta);
+    
+    if (!fs.existsSync(rutaNormalizada)) {
+      throw new Error(`El archivo no existe en la ruta: ${rutaNormalizada}`);
+    }    
+
     // Lee el contenido del archivo PDF
-    const contenidoPDF = fs.readFileSync(path.normalize(rutaUbuntu));
-    // const contenidoPDF = fs.readFileSync(ruta1);
-    console.log('contenidoPDF: ', contenidoPDF)
+    const contenidoPDF = fs.readFileSync(rutaNormalizada);
+    // const contenidoPDF = fs.readFileSync(ruta);
+    console.log('contenidoPDF: ', contenidoPDF);
 
     return contenidoPDF;
   } catch (error) {
     console.error('Error al leer el archivo PDF:', error);
-    applogger.error(`Error en GetCartaResponsabilidadPDF > No se pudo leer la carta de responsanilidades. Error: ${error}`);   
+    applogger.error(`Error en GetCartaResponsabilidadPDF > No se pudo leer la carta de responsabilidades. Error: ${error}`);
+
+    // Devuelve un PDF vacío en caso de error
     const pdfVacio = Buffer.from('%PDF-1.4\n1 0 obj\n<<>>\nendobj\nxref\n0 1\n0000000000 65535 f \ntrailer\n<<>>\nstartxref\n0\n%%EOF');
     return pdfVacio;
-    // throw error;
   }
 }
 
+// async function GetCartaResponsabilidadPDF() {
+//   try {
+//     // Validacion para mi equipo local de Desarrollo
+//     let ruta = '';
+//     //const rutaWindows = 'C:\\Users\\LAMUX\\Desktop\\Pakki\\portal\\Pakki_Rest\\src\\helpers\\Guias\\Document\\CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
+//     // console.log('pathGuia: ', pathGuia)
+//     const rutaUbuntu = `${pathGuia}/CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf`;
+//     // const ruta1 = 'D:\\Desarrollo\\Pakki\\Pakki_Rest\\src\\helpers\\Guias\\Document\\CARTA_DE_RESPONSABILIDAD_CLIENTES.pdf';
+//     // Lee el contenido del archivo PDF
+//     const contenidoPDF = fs.readFileSync(path.normalize(rutaUbuntu));
+//     // const contenidoPDF = fs.readFileSync(ruta1);
+//     console.log('contenidoPDF: ', contenidoPDF)
+
+//     return contenidoPDF;
+//   } catch (error) {
+//     console.error('Error al leer el archivo PDF:', error);
+//     applogger.error(`Error en GetCartaResponsabilidadPDF > No se pudo leer la carta de responsanilidades. Error: ${error}`);   
+//     const pdfVacio = Buffer.from('%PDF-1.4\n1 0 obj\n<<>>\nendobj\nxref\n0 1\n0000000000 65535 f \ntrailer\n<<>>\nstartxref\n0\n%%EOF');
+//     return pdfVacio;
+//     // throw error;
+//   }
+// }
+
+// async function converterPDF_UPS(base64String, coId, tipDocu) {
+//   try {
+//     // Cadena Base64 de la imagen
+//     const base64Data = base64String;
+
+//     // Crea un buffer a partir de la cadena Base64
+//     const imageBuffer = Buffer.from(base64Data, 'base64');
+
+//     // Guarda la imagen temporalmente como archivo GIF
+//     fs.writeFileSync('temp_image.gif', imageBuffer);
+
+//     // Opciones para la conversión de imagen a PDF
+//     const options = {
+//       input: 'temp_image.gif',
+//       output: 'Guia.gif',
+//       size: '1400x800'
+//     };
+
+//     // Convierte la imagen a PDF
+//     const pdf = await imageToPdf(options);
+    
+//     return pdf;
+//   } catch (error) {
+//     console.error('Error al convertir la imagen en PDF:', error);
+//     throw error; // Relanzamos el error para que sea capturado por el código que llame a esta función.
+//   } finally {
+//     // Elimina la imagen temporal (independientemente de si hubo un error o no)
+//     try {
+//       fs.unlinkSync('temp_image.gif');
+//     } catch (error) {
+//       console.error('Error al eliminar la imagen temporal:', error);
+//     }
+//   }
+// }
+
 async function converterPDF_UPS(base64String, coId, tipDocu) {
   try {
-    // Cadena Base64 de la imagen
     const base64Data = base64String;
-
-    // Crea un buffer a partir de la cadena Base64
     const imageBuffer = Buffer.from(base64Data, 'base64');
+    const imageBuffer1 = await sharp(imageBuffer).toFormat('png').toBuffer();
+    // fs.writeFileSync('temp_image.gif', imageBuffer1);
+    fs.writeFileSync('temp_image.png', imageBuffer1);
 
-    // Guarda la imagen temporalmente como archivo GIF
-    fs.writeFileSync('temp_image.gif', imageBuffer);
-
-    // Opciones para la conversión de imagen a PDF
+    // Usar imageToPdf para convertir la imagen
     const options = {
-      input: 'temp_image.gif',
+      input: ['temp_image.png'],
       output: 'Guia.gif',
-      size: '1400x800'
+      size: '700x400'
     };
 
-    // Convierte la imagen a PDF
-    const pdf = await imageToPdf(options);
-    
-    return pdf;
+    const pdfBuffer = await imageToPdf(options.input, options.size); // Asegúrate de que esta función retorna un buffer de PDF
+    return pdfBuffer;
   } catch (error) {
     console.error('Error al convertir la imagen en PDF:', error);
-    throw error; // Relanzamos el error para que sea capturado por el código que llame a esta función.
-  } finally {
-    // Elimina la imagen temporal (independientemente de si hubo un error o no)
-    try {
-      fs.unlinkSync('temp_image.gif');
-    } catch (error) {
-      console.error('Error al eliminar la imagen temporal:', error);
-    }
-  }
+    throw error;
+  } 
+  // finally {
+  //   try {
+  //     fs.unlinkSync('temp_image.gif');
+  //   } catch (error) {
+  //     console.error('Error al eliminar la imagen temporal:', error);
+  //   }
+  // }
 }
 
 // Función para convertir la cadena Base64 a un archivo PDF
@@ -222,38 +298,62 @@ async function convertBase64ToPDF(base64String, coId, tipDocu) {
 }
 
 // Usado por UPS
+// async function savePDFInPath(pdf, coId, tipDocu) {
+//   const proveedor = coId.substring(0, 3);
+//   const rutaDestino = path.join(__dirname, `Guias/${proveedor}`);
+//   const fileName = `${tipDocu}_${coId}.pdf`;
+//   let url = ''
+
+//   try {
+//     // Crea el directorio si no existe
+//     if (!fs.existsSync(rutaDestino)) {
+//       fs.mkdirSync(rutaDestino, { recursive: true });
+//     }
+
+//     // Genera la ruta completa del archivo PDF
+//     const rutaCompleta = path.join(rutaDestino, fileName);
+
+//     // Guarda el archivo PDF en la ruta especificada
+//     await fs.writeFileSync(rutaCompleta, pdf);
+//      // Normaliza la ruta para manejar diferencias entre Windows y Unix
+//    const rutaNormalizada = path.normalize(rutaCompleta);
+
+//     //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
+//     const partesRuta = rutaNormalizada.split(pathGuia);
+//     // const urlParte = partesRuta[1];
+//     url = `${urlGuia}/${proveedor}/${fileName}`;
+//     // Devolver la ruta del archivo guardado
+//     return url;
+//     // console.log('Archivo PDF guardado exitosamente en:', rutaCompleta);
+//   } catch (error) {
+//     console.error('Error al guardar el PDF:', error);
+//     return error;
+//   }
+// }
 async function savePDFInPath(pdf, coId, tipDocu) {
   const proveedor = coId.substring(0, 3);
   const rutaDestino = path.join(__dirname, `Guias/${proveedor}`);
   const fileName = `${tipDocu}_${coId}.pdf`;
-  let url = ''
 
   try {
-    // Crea el directorio si no existe
     if (!fs.existsSync(rutaDestino)) {
       fs.mkdirSync(rutaDestino, { recursive: true });
     }
 
-    // Genera la ruta completa del archivo PDF
     const rutaCompleta = path.join(rutaDestino, fileName);
 
-    // Guarda el archivo PDF en la ruta especificada
-    await fs.writeFileSync(rutaCompleta, pdf);
-     // Normaliza la ruta para manejar diferencias entre Windows y Unix
-   const rutaNormalizada = path.normalize(rutaCompleta);
+    // Usar fs.promises para escribir el archivo de manera asíncrona
+    await fs.promises.writeFile(rutaCompleta, pdf);
+    const rutaNormalizada = path.normalize(rutaCompleta);
 
-    //  TODO: EDITAMOS LA RUTA PARA QUE EL FRONT PUEDA DESCARGAR EL ARCHIVO
-    const partesRuta = rutaNormalizada.split(pathGuia);
-    // const urlParte = partesRuta[1];
-    url = `${urlGuia}/${proveedor}/${fileName}`;
-    // Devolver la ruta del archivo guardado
+    const url = `${urlGuia}/${proveedor}/${fileName}`;
     return url;
-    // console.log('Archivo PDF guardado exitosamente en:', rutaCompleta);
   } catch (error) {
     console.error('Error al guardar el PDF:', error);
     return error;
   }
 }
+
 // Usado por UPS
 async function savePDFDocumentInPath(pdf, coId, tipDocu) {
   const proveedor = coId.substring(0, 3);
