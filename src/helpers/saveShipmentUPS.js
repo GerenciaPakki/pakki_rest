@@ -35,7 +35,7 @@ async function REQ_1_ShipmentUPS(dat) {
 
   ShipUPS_XML = mustache.render(xmlShipDocUPS, dat);
 
-    applogger.info('shipmentUPS 2.1: ', url)
+    applogger.info(`shipmentUPS 2.1: ${url}`)
 
     return axios.post(url, ShipUPS_XML, {})
       .then(response => {
@@ -43,7 +43,7 @@ async function REQ_1_ShipmentUPS(dat) {
         xml2js.parseString(xmlResUPS, (error, result) => {
           if (error) {
               console.error(error);
-              applogger.info('shipmentUPS 2.2: ', error)
+              applogger.info(`shipmentUPS 2.2: ${error}`)
           } else {
               jsonResUPS.push(result);                    
           }
@@ -55,7 +55,7 @@ async function REQ_1_ShipmentUPS(dat) {
         if (responseStatusCode === '0') { // 0 indicates failure in UPS responses
           const errorDescription = resp.Response[0].Error[0].ErrorDescription[0];
 
-          applogger.info('shipmentUPS 2.3: ', errorDescription)
+          applogger.info(`shipmentUPS 2.3: ${errorDescription}`)
 
           return {
             ok: false,
