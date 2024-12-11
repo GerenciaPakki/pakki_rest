@@ -42,8 +42,8 @@ async function REQ_1_ShipmentUPS(dat) {
         xmlResUPS = response.data;
         xml2js.parseString(xmlResUPS, (error, result) => {
           if (error) {
-              console.error(error);
-              applogger.info(`shipmentUPS 2.2: ${error}`)
+              console.error(`Error al consumir servicio (${url}): ${error}`);
+              applogger.error(`shipmentUPS 2.2: ${error}`);
           } else {
               jsonResUPS.push(result);                    
           }
