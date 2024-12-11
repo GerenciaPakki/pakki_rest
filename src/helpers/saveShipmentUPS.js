@@ -4,6 +4,7 @@ const xml2js = require('xml2js');
 const builder = require('xmlbuilder');
 const parser = require('xml2js').parseString;
 const { DateTime } = require('luxon');
+const { applogger } = require('../utils/logger');
 
 const parsero = new xml2js.Parser();
 const buildero = new xml2js.Builder();
@@ -34,12 +35,15 @@ async function REQ_1_ShipmentUPS(dat) {
 
   ShipUPS_XML = mustache.render(xmlShipDocUPS, dat);
 
+    applogger.info('shipmentUPS 2.1: ', url)
+
     return axios.post(url, ShipUPS_XML, {})
       .then(response => {
         xmlResUPS = response.data;
         xml2js.parseString(xmlResUPS, (error, result) => {
           if (error) {
               console.error(error);
+              applogger.info('shipmentUPS 2.2: ', error)
           } else {
               jsonResUPS.push(result);                    
           }
@@ -50,6 +54,9 @@ async function REQ_1_ShipmentUPS(dat) {
         const responseStatusCode = resp.Response[0].ResponseStatusCode[0];
         if (responseStatusCode === '0') { // 0 indicates failure in UPS responses
           const errorDescription = resp.Response[0].Error[0].ErrorDescription[0];
+
+          applogger.info('shipmentUPS 2.3: ', errorDescription)
+
           return {
             ok: false,
             msg: 'Error UPS_CO Generar Guia: SaveShipmentUPS01 ' + errorDescription
