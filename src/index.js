@@ -29,10 +29,12 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
+    console.log('Origin:', origin);
     // Permite solicitudes sin origen (como las de herramientas como Postman).
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error('Blocked by CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -41,7 +43,7 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 
 app.use(express.json());
