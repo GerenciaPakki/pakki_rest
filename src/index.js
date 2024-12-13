@@ -17,7 +17,7 @@ const corsOptions = {
   allowedHeaders: ['x-token','Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
   credentials: true
 };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended:false}));
 
