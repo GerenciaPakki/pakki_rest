@@ -37,6 +37,7 @@ try {
   ShipUPS_XML = mustache.render(xmlShipDocUPS, dat);
 
     applogger.info(`shipmentUPS 2.1: ${url}`)
+    applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
 
     return axios.post(url, ShipUPS_XML, {})
       .then(response => {
