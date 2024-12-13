@@ -39,6 +39,128 @@ try {
     applogger.info(`shipmentUPS 2.1: ${url}`)
     applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
 
+    let ShipUPS_XML = `<?xml version="1.0"?>
+<AccessRequest xml:lang="en-US">    
+	<AccessLicenseNumber>CD393505DC755C88</AccessLicenseNumber>    
+	<UserId>YoTraigo.com</UserId>    
+	<Password>Colombia@123</Password>
+</AccessRequest>
+<ShipmentConfirmRequest xml:lang="en-US">    
+	<Request>        
+		<TransactionReference>            
+			<CustomerContext>PAKKI</CustomerContext>        
+		</TransactionReference>        
+		<RequestAction>ShipConfirm</RequestAction>        
+		<RequestOption>nonvalidate</RequestOption>    
+	</Request>    
+	<Shipment>        
+		<Description>Documents</Description>        
+		<Shipper>            
+			<Name>Jhon Rico</Name>            
+			<AttentionName>Jhon Rico</AttentionName>            
+			<CompanyDisplayableName>Jhon Rico</CompanyDisplayableName>            
+			<PhoneNumber>3193652064</PhoneNumber>            
+			<ShipperNumber>7359XW</ShipperNumber>            
+			<TaxIdentificationNumber/>            
+			<EMailAddress>jhonalex945@hotmail.com</EMailAddress>            
+			<Address>                
+				<AddressLine1>Dg 15a#99-34</AddressLine1>                
+				<AddressLine2></AddressLine2>                
+				<AddressLine3></AddressLine3>                
+				<City>Bogota</City>                
+				<StateProvinceCode>DC</StateProvinceCode>                
+				<PostalCode>110111</PostalCode>                
+				<CountryCode>CO</CountryCode>            
+			</Address>        
+		</Shipper>        
+		<ShipTo>            
+			<CompanyName>Cristian Rodriguez</CompanyName>            
+			<AttentionName>Cristian Rodriguez</AttentionName>            
+			<PhoneNumber>3193652064</PhoneNumber>            
+			<EMailAddress>jhonalex945@hotmail.com</EMailAddress>            
+			<Address>                
+				<AddressLine1>Calle 67#45-45</AddressLine1>                
+				<AddressLine2></AddressLine2>                
+				<AddressLine3></AddressLine3>                
+				<City>Toronto</City>                
+				<StateProvinceCode>ON</StateProvinceCode>                
+				<PostalCode>M3C 0C1</PostalCode>                
+				<CountryCode>CA</CountryCode>            
+			</Address>        
+		</ShipTo>        
+		<ShipFrom>            
+			<CompanyName>Jhon Rico</CompanyName>            
+			<AttentionName>Jhon Rico</AttentionName>            
+			<PhoneNumber>3193652064</PhoneNumber>            
+			<EMailAddress>jhonalex945@hotmail.com</EMailAddress>            
+			<Address>                
+				<AddressLine1>Dg 15a#99-34</AddressLine1>                
+				<AddressLine2></AddressLine2>                
+				<AddressLine3></AddressLine3>                
+				<City>Bogota</City>                
+				<StateProvinceCode>34</StateProvinceCode>                
+				<PostalCode>110111</PostalCode>                
+				<CountryCode>CO</CountryCode>            
+			</Address>        
+		</ShipFrom>        
+		<PaymentInformation>            
+			<Prepaid>                
+				<BillShipper>                    
+					<AccountNumber>7359XW</AccountNumber>                
+				</BillShipper>            
+			</Prepaid>        
+		</PaymentInformation>        
+		<Service>            
+			<Code>65</Code>            
+			<Description>UPS Worldwide Saver</Description>        
+		</Service>        
+		<Package>            
+			<PackagingType>                
+				<Code>01</Code>                
+				<Description>UPS Letter</Description>            
+			</PackagingType>            
+			<Description>Documents</Description>            
+			<PackageWeight>                
+				<UnitOfMeasurement>                    
+					<Code>KGS</Code>                    
+					<Description>KILOGRAMS</Description>                
+				</UnitOfMeasurement>                
+				<Weight>0.5</Weight>            
+			</PackageWeight>            
+			<PackageServiceOptions>                
+				<InsuredValue>                    
+					<Type>                        
+						<Code>01</Code>                    
+					</Type>                    
+					<CurrencyCode>USD</CurrencyCode>                    
+					<MonetaryValue>100</MonetaryValue>                
+				</InsuredValue>                
+				<DeclaredValue>                    
+					<Type>                        
+						<Code>01</Code>                    
+					</Type>                    
+					<CurrencyCode>USD</CurrencyCode>                    
+					<MonetaryValue>1</MonetaryValue>                
+				</DeclaredValue>            
+			</PackageServiceOptions>        
+		</Package>        
+		<RateInformation>            
+			<NegotiatedRatesIndicator/>            
+			<RateChartIndicator/>        
+		</RateInformation>    
+	</Shipment>    
+	<LabelSpecification>        
+		<LabelPrintMethod>            
+			<Code>GIF</Code>            
+			<Description>GIF</Description>        
+		</LabelPrintMethod>        
+		<LabelImageFormat>            
+			<Code>GIF</Code>            
+			<Description>GIF</Description>        
+		</LabelImageFormat>    
+	</LabelSpecification>
+</ShipmentConfirmRequest>`;
+
     return axios.post(url, ShipUPS_XML, {})
       .then(response => {
         xmlResUPS = response.data;
