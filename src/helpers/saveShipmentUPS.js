@@ -40,7 +40,7 @@ try {
     applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
 
     const cleanedXml = ShipUPS_XML.replace(/\\"/g, '"');
-    applogger.info(`shipmentUPS 2.1.1: ${cleanedXml}`)
+    applogger.info(`shipmentUPS 2.1.2: ${cleanedXml}`)
 
 //     ShipUPS_XML = `<?xml version="1.0"?>
 // <AccessRequest xml:lang="en-US">    
