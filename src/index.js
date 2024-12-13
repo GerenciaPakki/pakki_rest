@@ -11,13 +11,39 @@ const port = env.PORT;
 
 // Coneccion a Base de Datos
 dbConn();
+// const corsOptions = {
+//   origin: ['*.pakki.click/*', 'https://admin.pakki.click', 'https://devfront.pakki.click', 'https://devback.pakki.click', 'https://pakki.click', 'http://localhost:4200', '*/localhost:*', 'http://localhost:4200/api/v1', 'http://localhost:4010'],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['x-token','Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+//   credentials: true
+// };
+// app.use(cors(corsOptions));
+
+const allowedOrigins = [
+  'https://admin.pakki.click',
+  'https://devfront.pakki.click',
+  'https://devback.pakki.click',
+  'https://pakki.click',
+  'http://localhost:4200',
+];
+
 const corsOptions = {
-  origin: ['*.pakki.click/*', 'https://admin.pakki.click', 'https://devfront.pakki.click', 'https://devback.pakki.click', 'https://pakki.click', 'http://localhost:4200', '*/localhost:*', 'http://localhost:4200/api/v1', 'http://localhost:4010'],
+  origin: (origin, callback) => {
+    // Permite solicitudes sin origen (como las de herramientas como Postman).
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['x-token','Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['x-token', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended:false}));
 
