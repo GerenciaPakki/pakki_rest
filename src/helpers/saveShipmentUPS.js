@@ -39,7 +39,7 @@ try {
     applogger.info(`shipmentUPS 2.1: ${url}`)
     applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
 
-    let ShipUPS_XML = `<?xml version="1.0"?>
+    ShipUPS_XML = `<?xml version="1.0"?>
 <AccessRequest xml:lang="en-US">    
 	<AccessLicenseNumber>CD393505DC755C88</AccessLicenseNumber>    
 	<UserId>YoTraigo.com</UserId>    
