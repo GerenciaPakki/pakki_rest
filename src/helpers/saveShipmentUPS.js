@@ -43,18 +43,22 @@ try {
     return axios.post(url, ShipUPS_XML, {})
       .then(response => {
         xmlResUPS = response.data;
+        applogger.info(`Response.data ${xmlResUPS}`)
         xml2js.parseString(xmlResUPS, (error, result) => {
           if (error) {
               console.error(`Error al consumir servicio (${url}): ${error}`);
               applogger.error(`shipmentUPS 2.2: ${error}`);
+              throw new Error(`XML parsing error: ${error}`);
           } else {
               jsonResUPS.push(result);                    
           }
         });
-
+        applogger.info(`shipmentUPS 2.1.2: ${ShipUPS_XML}`)
         resp = jsonResUPS[0].ShipmentConfirmResponse;
+        applogger.info(`shipmentUPS 2.1.3: ${ShipUPS_XML}`)
        
         const responseStatusCode = resp.Response[0].ResponseStatusCode[0];
+        applogger.info(`shipmentUPS 2.1.4: ${ShipUPS_XML}`)
         if (responseStatusCode === '0') { // 0 indicates failure in UPS responses
           const errorDescription = resp.Response[0].Error[0].ErrorDescription[0];
 
@@ -66,6 +70,8 @@ try {
           };
         }
 
+        applogger.info(`shipmentUPS 2.3.1: ${errorDescription}`)
+
         dataLabel = {
           CurrencyCode: resp.ShipmentCharges[0].TotalCharges[0].CurrencyCode[0],
           MonetaryValue: resp.ShipmentCharges[0].TotalCharges[0].MonetaryValue[0],
@@ -73,6 +79,7 @@ try {
           ShipmentDigest: resp.ShipmentDigest[0]
         };
           
+        applogger.info(`shipmentUPS 2.3.2: ${errorDescription}`)
         return dataLabel;
         // return resp;
 
