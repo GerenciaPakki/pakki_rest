@@ -75,6 +75,13 @@ const applogger = createLogger({
       format: format.combine(filterLevel('info')) // Filtra solo los mensajes informativos
     }),
 
+    // Transport para info (solo registrará mensajes informativos)
+    new transports.File({
+      filename: './logs/debug.log',
+      level: 'debug',
+      format: format.combine(filterLevel('debug')) // Filtra solo los mensajes informativos
+    }),
+
     // Opcional: Loguear en consola
     new transports.Console({
       format: format.simple(),

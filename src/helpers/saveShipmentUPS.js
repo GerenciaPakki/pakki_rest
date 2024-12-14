@@ -38,6 +38,7 @@ try {
 
     applogger.info(`shipmentUPS 2.1: ${url}`)
     applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
+    applogger.debug(`ShipUPS_XML generado: ${ShipUPS_XML}`);
         
     return axios.post(url, ShipUPS_XML, {})
       .then(response => {
