@@ -34,6 +34,18 @@ async function REQ_1_ShipmentUPS(dat) {
   let dataLabel = {}
 
 try {
+
+    dataLabel = {
+      CurrencyCode: '111',
+      MonetaryValue: '1000',
+      ShipmentCode: '123456',
+      ShipmentDigest: '999'
+    };
+          
+    return dataLabel;
+
+
+
     ShipUPS_XML = mustache.render(xmlShipDocUPS, dat);
 
     applogger.info(`shipmentUPS 2.1: ${url}`)
