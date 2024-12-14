@@ -67,9 +67,15 @@ async function quotaUPS(shipper, recipient, bus, uid, shipment, dat, res) {
                         jsonResUPS.push(result);                    
                     }
                 });
-    
+                    
+                if(jsonResUPS[0].RatingServiceSelectionResponse.RatedShipment == null){
+                    let mensaje = jsonResUPS[0].RatingServiceSelectionResponse.Response[0].Error[0].ErrorDescription[0];
+                    
+                    applogger.info(`Info UPS_CO_NAT: ${mensaje}`);            
+                    return ProvidersUPS.push(`Info UPS_CO_NAT: ${mensaje}`);
+                }                
+
                 const resp = jsonResUPS[0].RatingServiceSelectionResponse.RatedShipment[0];
-                
                 // console.log('Este campo contiene:', resp.NegotiatedRates[0].NetSummaryCharges[0].GrandTotal[0]);
                 
                 if (resp?.NegotiatedRates?. [0]?.NetSummaryCharges?. [0]?.GrandTotal?. [0]) {
