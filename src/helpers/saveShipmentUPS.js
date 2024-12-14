@@ -35,6 +35,8 @@ async function REQ_1_ShipmentUPS(dat) {
 
 try {
 
+    applogger.info(`shipmentUPS 2.1`)
+
     dataLabel = {
       CurrencyCode: 'USD',
       MonetaryValue: '70.38',
@@ -42,6 +44,9 @@ try {
       ShipmentDigest: 'tEI1fPLJGUQbs6yNFlR+joGxIz7aQa3H3PIEUGPXQBCn4Hpj53RWymmvg7L80XiMUSV3uVqzl0zxFkSRFPwutDKS5Oxpg267HzRwq+yxWAqhVslyiI56lphIntuaOG4OPAaB87jhZ2zTASmQY861Dsgu6oJgZcXLV8Xd4oni/erjM5U4rrmBWxriqXVvoEiul/WJhChn8LAyz6sw+YTAoof3RNYv9zYH6nsGIUwz5P4KCQRz90BTdILVneN1FGDC1cuqrXx3Qah/0/ocDIJiA4OfdBNkDjncdfecioUQvv3VQCztD+7qwmQLRxfA7T2qon9qZIHewDwhW484bYG9L8/zEydGlDowqOYsUl2GbJ04IUikjUyowDkRKYG69PF6WtEwEPNSNiC7VCWeGagm7fUAaEjNtGWMRY2M1M+O36RQOX2QZJnuFPepUvQZnBeKCdggmCo8mD4ZPDSUu1AJCZukyIlLc/yvcIE+SusgQjJbGKrA/C8…Gaf9FMxVRQw96wvPu4VIx1fGYK9mydaOVjojDvdOrcBRwM1tlMsduHolS/t/Z6ojkFZcM5qC9fiVcY04x8lSgtq1KbHgZ4FpeEziv0vff5dQDXKgEAagkL2jqYidzu6xk=QVNERiFAIyRBU0RGIUAjJA==vVrG8BUkcitw5pDc5XYfEmXlgMslJuM+9+GvMYZI8Lqu3VfRsE79rvTcX6zyYMQ8wKPGNrTJPE6BZ/ZFtSIQNw3MXSda6RBqJT66s1LrY5XGWSkwnTekyHxqjTrj8vzYUdinfqblwGVJ/pD/i6GvbvwdE8ThJCYWep6cT5AeHbEr1MzFfjKXNRUFfg12dv2EQsv5E/gXu/x3JkZcme/TnFO9pBJ4IIDBv0rtjmEIoYIDphk8Wpoq8MLJLC69iVbLvpnZ0Jj5OoXe32954jEGwFb9qO9UuI3o3ibIz6cdbW+OzV8Yf34TlPcMrIM42uXxLhK+0iN4HGJCAiis3S+NRQ=='
     };
           
+    applogger.info(`shipmentUPS 2.2: ${dataLabel}`)
+
+
     return dataLabel;
 
 
