@@ -61,7 +61,7 @@ async function quotaUPS(shipper, recipient, bus, uid, shipment, dat, res) {
                 const xmlResUPS = response.data;
                 xml2js.parseString(xmlResUPS, (error, result) => {
                     if (error) {
-                        loggers.error(`Error respuesta servicio CDR: ${error}`)
+                        loggers.error(`Error respuesta servicio UPS: ${error}`)
                         console.error(error);
                     } else {
                         jsonResUPS.push(result);                    
