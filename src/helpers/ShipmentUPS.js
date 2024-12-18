@@ -36,6 +36,7 @@ global.proceso = {
   errores: []
 };
 
+
 //async function shipmentUPS(shipper, recipient, shipment, Pickup, Provider, company, dat) {  
 async function shipmentUPS(dat) {  
   try {
