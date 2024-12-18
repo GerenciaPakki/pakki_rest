@@ -25,6 +25,7 @@ const allowedOrigins = [
   'https://devback.pakki.click',
   'https://pakki.click',
   'http://localhost:4200',  
+  '*'
 ];
 
 const corsOptions = {
