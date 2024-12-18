@@ -203,7 +203,7 @@ try {
     // const xmlDoc = parser.parseFromString(ShipUPS_XML, 'application/xml');
 
     applogger.info(`shipmentUPS 2.1: ${url}`)
-    applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
+    // applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
     // applogger.debug(`ShipUPS_XML generado: ${xmlDoc}`);
 
     ShipUPS_XML = ShipUPS_XML.replace(/\n/g, '').trim();
@@ -335,7 +335,7 @@ try {
       'Accept': 'application/xml',      // Opcional, si el servicio lo requiere
     };
     
-
+    applogger.info(`shipmentUPS 2.1.1: antes de ejceutar post`)
     return axios.post(url, ShipUPS_XML, { headers, transformRequest: [(data) => data] })
     // return axios.post(url, xmlDoc, {})
       .then(response => {
