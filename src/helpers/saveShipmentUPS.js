@@ -208,126 +208,126 @@ try {
 
     ShipUPS_XML = ShipUPS_XML.replace(/\n/g, '').trim();
 
-    ShipUPS_XML = `<?xml version=\"1.0\"?>\n
-                        <AccessRequest xml:lang="en-US">\n    
-                          <AccessLicenseNumber>CD393505DC755C88</AccessLicenseNumber>\n    
-                          <UserId>YoTraigo.com</UserId>\n    
-                          <Password>Colombia@123</Password>\n
-                        </AccessRequest>\n
-                        <ShipmentConfirmRequest xml:lang="en-US">\n    
-                          <Request>\n        
-                            <TransactionReference>\n            
-                              <CustomerContext>PAKKI</CustomerContext>\n        
-                            </TransactionReference>\n        
-                            <RequestAction>ShipConfirm</RequestAction>\n        
-                            <RequestOption>nonvalidate</RequestOption>\n    
-                          </Request>\n    
-                          <Shipment>\n        
-                            <Description>Documents</Description>\n        
-                            <Shipper>\n            
-                              <Name>Jhon Rico</Name>\n            
-                              <AttentionName>Jhon Rico</AttentionName>\n            
-                              <CompanyDisplayableName>Jhon Rico</CompanyDisplayableName>\n            
-                              <PhoneNumber>3193652064</PhoneNumber>\n            
-                              <ShipperNumber>7359XW</ShipperNumber>\n            
-                              <TaxIdentificationNumber/>\n            
-                              <EMailAddress>jhonalex945@hotmail.com</EMailAddress>\n            
-                              <Address>\n                
-                                <AddressLine1>Dg 15a#99-34</AddressLine1>\n                
-                                <AddressLine2></AddressLine2>\n                
-                                <AddressLine3></AddressLine3>\n                
-                                <City>Bogota</City>\n                
-                                <StateProvinceCode>DC</StateProvinceCode>\n                
-                                <PostalCode>110111</PostalCode>\n                
-                                <CountryCode>CO</CountryCode>\n            
-                              </Address>\n        
-                            </Shipper>\n        
-                            <ShipTo>\n            
-                              <CompanyName>Cristian Rodriguez</CompanyName>\n            
-                              <AttentionName>Cristian Rodriguez</AttentionName>\n            
-                              <PhoneNumber>3193652064</PhoneNumber>\n            
-                              <EMailAddress>jhonalex945@hotmail.com</EMailAddress>\n            
-                              <Address>\n                
-                                <AddressLine1>Calle 67#45-45</AddressLine1>\n                
-                                <AddressLine2></AddressLine2>\n                
-                                <AddressLine3></AddressLine3>\n                
-                                <City>Toronto</City>\n                
-                                <StateProvinceCode>ON</StateProvinceCode>\n                
-                                <PostalCode>M3C 0C1</PostalCode>\n                
-                                <CountryCode>CA</CountryCode>\n            
-                              </Address>\n        
-                            </ShipTo>\n        
-                            <ShipFrom>\n            
-                              <CompanyName>Jhon Rico</CompanyName>\n            
-                              <AttentionName>Jhon Rico</AttentionName>\n            
-                              <PhoneNumber>3193652064</PhoneNumber>\n            
-                              <EMailAddress>jhonalex945@hotmail.com</EMailAddress>\n            
-                              <Address>\n                
-                                <AddressLine1>Dg 15a#99-34</AddressLine1>\n                
-                                <AddressLine2></AddressLine2>\n                
-                                <AddressLine3></AddressLine3>\n                
-                                <City>Bogota</City>\n                
-                                <StateProvinceCode>34</StateProvinceCode>\n                
-                                <PostalCode>110111</PostalCode>\n                
-                                <CountryCode>CO</CountryCode>\n            
-                              </Address>\n        
-                            </ShipFrom>\n        
-                            <PaymentInformation>\n            
-                              <Prepaid>\n                
-                                <BillShipper>\n                    
-                                  <AccountNumber>7359XW</AccountNumber>\n                
-                                </BillShipper>\n            
-                              </Prepaid>\n        
-                            </PaymentInformation>\n        
-                            <Service>\n            
-                              <Code>65</Code>\n            
-                              <Description>UPS Worldwide Saver</Description>\n        
-                            </Service>\n        
-                            <Package>\n            
-                              <PackagingType>\n                
-                                <Code>01</Code>\n                
-                                <Description>UPS Letter</Description>\n            
-                              </PackagingType>\n            
-                              <Description>Documents</Description>\n            
-                              <PackageWeight>\n                
-                                <UnitOfMeasurement>\n                    
-                                  <Code>KGS</Code>\n                    
-                                  <Description>KILOGRAMS</Description>\n                
-                                </UnitOfMeasurement>\n                
-                                <Weight>0.5</Weight>\n            
-                              </PackageWeight>\n            
-                              <PackageServiceOptions>\n                
-                                <InsuredValue>\n                    
-                                  <Type>\n                        
-                                    <Code>01</Code>\n                    
-                                  </Type>\n                    
-                                  <CurrencyCode>USD</CurrencyCode>\n                    
-                                  <MonetaryValue>100</MonetaryValue>\n                
-                                </InsuredValue>\n                
-                                <DeclaredValue>\n                    
-                                  <Type>\n                        
-                                    <Code>01</Code>\n                    
-                                  </Type>\n                    
-                                  <CurrencyCode>USD</CurrencyCode>\n                    
-                                  <MonetaryValue>1</MonetaryValue>\n                
-                                </DeclaredValue>\n            
-                              </PackageServiceOptions>\n        
-                            </Package>\n        
-                            <RateInformation>\n            
-                              <NegotiatedRatesIndicator/>\n            
-                              <RateChartIndicator/>\n        
-                            </RateInformation>\n    
-                          </Shipment>\n    
-                          <LabelSpecification>\n        
-                            <LabelPrintMethod>\n            
-                              <Code>GIF</Code>\n            
-                              <Description>GIF</Description>\n        
-                            </LabelPrintMethod>\n        
-                            <LabelImageFormat>\n            
-                              <Code>GIF</Code>\n            
-                              <Description>GIF</Description>\n        
-                            </LabelImageFormat>\n    
-                          </LabelSpecification>\n
+    ShipUPS_XML = `<?xml version="1.0"?>
+                        <AccessRequest xml:lang="en-US">    
+                          <AccessLicenseNumber>CD393505DC755C88</AccessLicenseNumber>    
+                          <UserId>YoTraigo.com</UserId>    
+                          <Password>Colombia@123</Password>
+                        </AccessRequest>
+                        <ShipmentConfirmRequest xml:lang="en-US">    
+                          <Request>        
+                            <TransactionReference>            
+                              <CustomerContext>PAKKI</CustomerContext>        
+                            </TransactionReference>        
+                            <RequestAction>ShipConfirm</RequestAction>        
+                            <RequestOption>nonvalidate</RequestOption>    
+                          </Request>    
+                          <Shipment>        
+                            <Description>Documents</Description>        
+                            <Shipper>            
+                              <Name>Jhon Rico</Name>            
+                              <AttentionName>Jhon Rico</AttentionName>            
+                              <CompanyDisplayableName>Jhon Rico</CompanyDisplayableName>            
+                              <PhoneNumber>3193652064</PhoneNumber>            
+                              <ShipperNumber>7359XW</ShipperNumber>            
+                              <TaxIdentificationNumber/>            
+                              <EMailAddress>jhonalex945@hotmail.com</EMailAddress>            
+                              <Address>                
+                                <AddressLine1>Dg 15a#99-34</AddressLine1>                
+                                <AddressLine2></AddressLine2>                
+                                <AddressLine3></AddressLine3>                
+                                <City>Bogota</City>                
+                                <StateProvinceCode>DC</StateProvinceCode>                
+                                <PostalCode>110111</PostalCode>                
+                                <CountryCode>CO</CountryCode>            
+                              </Address>        
+                            </Shipper>        
+                            <ShipTo>            
+                              <CompanyName>Cristian Rodriguez</CompanyName>            
+                              <AttentionName>Cristian Rodriguez</AttentionName>            
+                              <PhoneNumber>3193652064</PhoneNumber>            
+                              <EMailAddress>jhonalex945@hotmail.com</EMailAddress>            
+                              <Address>                
+                                <AddressLine1>Calle 67#45-45</AddressLine1>                
+                                <AddressLine2></AddressLine2>                
+                                <AddressLine3></AddressLine3>                
+                                <City>Toronto</City>                
+                                <StateProvinceCode>ON</StateProvinceCode>                
+                                <PostalCode>M3C 0C1</PostalCode>                
+                                <CountryCode>CA</CountryCode>            
+                              </Address>        
+                            </ShipTo>        
+                            <ShipFrom>            
+                              <CompanyName>Jhon Rico</CompanyName>            
+                              <AttentionName>Jhon Rico</AttentionName>            
+                              <PhoneNumber>3193652064</PhoneNumber>            
+                              <EMailAddress>jhonalex945@hotmail.com</EMailAddress>            
+                              <Address>                
+                                <AddressLine1>Dg 15a#99-34</AddressLine1>                
+                                <AddressLine2></AddressLine2>                
+                                <AddressLine3></AddressLine3>                
+                                <City>Bogota</City>                
+                                <StateProvinceCode>34</StateProvinceCode>                
+                                <PostalCode>110111</PostalCode>                
+                                <CountryCode>CO</CountryCode>            
+                              </Address>        
+                            </ShipFrom>        
+                            <PaymentInformation>            
+                              <Prepaid>                
+                                <BillShipper>                    
+                                  <AccountNumber>7359XW</AccountNumber>                
+                                </BillShipper>            
+                              </Prepaid>        
+                            </PaymentInformation>        
+                            <Service>            
+                              <Code>65</Code>            
+                              <Description>UPS Worldwide Saver</Description>        
+                            </Service>        
+                            <Package>            
+                              <PackagingType>                
+                                <Code>01</Code>                
+                                <Description>UPS Letter</Description>            
+                              </PackagingType>            
+                              <Description>Documents</Description>            
+                              <PackageWeight>                
+                                <UnitOfMeasurement>                    
+                                  <Code>KGS</Code>                    
+                                  <Description>KILOGRAMS</Description>                
+                                </UnitOfMeasurement>                
+                                <Weight>0.5</Weight>            
+                              </PackageWeight>            
+                              <PackageServiceOptions>                
+                                <InsuredValue>                    
+                                  <Type>                        
+                                    <Code>01</Code>                    
+                                  </Type>                    
+                                  <CurrencyCode>USD</CurrencyCode>                    
+                                  <MonetaryValue>100</MonetaryValue>                
+                                </InsuredValue>                
+                                <DeclaredValue>                    
+                                  <Type>                        
+                                    <Code>01</Code>                    
+                                  </Type>                    
+                                  <CurrencyCode>USD</CurrencyCode>                    
+                                  <MonetaryValue>1</MonetaryValue>                
+                                </DeclaredValue>            
+                              </PackageServiceOptions>        
+                            </Package>        
+                            <RateInformation>            
+                              <NegotiatedRatesIndicator/>            
+                              <RateChartIndicator/>        
+                            </RateInformation>    
+                          </Shipment>    
+                          <LabelSpecification>        
+                            <LabelPrintMethod>            
+                              <Code>GIF</Code>            
+                              <Description>GIF</Description>        
+                            </LabelPrintMethod>        
+                            <LabelImageFormat>            
+                              <Code>GIF</Code>            
+                              <Description>GIF</Description>        
+                            </LabelImageFormat>    
+                          </LabelSpecification>
                         </ShipmentConfirmRequest>`;
 
     const headers = {
@@ -336,7 +336,7 @@ try {
     };
     
     applogger.info(`shipmentUPS 2.1.1: antes de ejceutar post`)
-    return axios.post(url, ShipUPS_XML, { headers, transformRequest: [(data) => data] })
+    return axios.post(url, ShipUPS_XML, { headers }) // headers, transformRequest: [(data) => data] })
     // return axios.post(url, xmlDoc, {})
       .then(response => {
         xmlResUPS = response.data;
