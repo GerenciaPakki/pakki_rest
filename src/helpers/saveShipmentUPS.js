@@ -5,6 +5,7 @@ const builder = require('xmlbuilder');
 const parser = require('xml2js').parseString;
 const { DateTime } = require('luxon');
 const { applogger } = require('../utils/logger');
+const { DOMParser } = require('xmldom');
 
 const parsero = new xml2js.Parser();
 const buildero = new xml2js.Builder();
@@ -35,7 +36,7 @@ async function REQ_1_ShipmentUPS(dat) {
 
 try {
 
-    applogger.info(`shipmentUPS 2.1`)
+    // applogger.info(`shipmentUPS 2.1`)
 
     // dataLabel = {
     //   CurrencyCode: 'USD',
@@ -49,15 +50,23 @@ try {
 
     // return dataLabel;
 
-
+    
 
     ShipUPS_XML = mustache.render(xmlShipDocUPS, dat);
 
-    // applogger.info(`shipmentUPS 2.1: ${url}`)
+    // applogger.info(`xmlShipDocUPS: ${xmlShipDocUPS}`)
+    // applogger.info(`---------------------------------------------------------------------------------------------------`)
+    // applogger.info(`ShipUPS_XML: ${ShipUPS_XML}`)
+
+    // const parser = new DOMParser();
+    // const xmlDoc = parser.parseFromString(ShipUPS_XML, 'application/xml');
+
+    applogger.info(`shipmentUPS 2.1: ${url}`)
     applogger.info(`shipmentUPS 2.1.1: ${ShipUPS_XML}`)
-    applogger.debug(`ShipUPS_XML generado: ${ShipUPS_XML}`);
-        
+    // applogger.debug(`ShipUPS_XML generado: ${xmlDoc}`);
+
     return axios.post(url, ShipUPS_XML, {})
+    // return axios.post(url, xmlDoc, {})
       .then(response => {
         xmlResUPS = response.data;
         applogger.info(`Response.data ${xmlResUPS}`)
