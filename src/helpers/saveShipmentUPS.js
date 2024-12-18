@@ -162,18 +162,25 @@ async function REQ_1_ShipmentUPS(dat) {
       data: ShipUPS_XML,
     };
 
+    console.log('PASO 1 - JARD');
+
     axios(options)
     .then((response) => {
       applogger.info('Respuesta del servidor:', response.data);
     })
     .catch((error) => {
-      applogger.error('Error:', error.message);
+      if (error.response) {
+        applogger.error(`Error: ${error.response.status} - ${error.response.data}`);
+      } else {
+        applogger.error('Error:', error.message);
+      }
     });
+
+    console.log('PASO 2 - JARD');
   } catch (error) {
       applogger.error('catch', error);
+      console.log('PASO 3 - JARD');
   }
-
-
 }
 
 async function REQ_1_ShipmentUPS_old(dat) { 
